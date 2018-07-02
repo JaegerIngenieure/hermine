@@ -20,4 +20,4 @@ It's recommended to setting up a W-Lan Adapter as hotspot on your machine for ea
 - replace the directories and files with the files from the hermine-xampp package
 - start your hotspot (optional)
 - access hermine at the host via https://localhost
-- access hermine at the client via http://xxx.xxx.xxx.xxx
+- access hermine at the client via https://xxx.xxx.xxx.xxx
