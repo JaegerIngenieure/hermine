@@ -1,0 +1,12 @@
+<controllers>
+	<!-- the order of the defintions describes the including order -->
+	<controller path="configuration.controller.php" />
+	<controller path="module.controller.php" />
+	<controller path="context.controller.php" />
+	<controller path="database.controller.php" />
+	<controller path="html.controller.php" />
+	<controller path="head.controller.php" />
+	<controller path="body.controller.php" />
+	<controller path="menu.controller.php" />
+	<controller path="content.controller.php" />
+</controllers>
