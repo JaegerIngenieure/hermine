@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modules>
+	<module name="Persons" directory="person" class="PersonModule" />
+	<module name="authentication" directory="auth" class="AuthenticationModule" />
+	<module name="ajax" directory="ajax" class="AjaxModule" />
+	<module name="files" directory="files" class="FilesModule" />
+	<module name="home" directory="home" class="HomeModule" />
+</modules>

@@ -1,0 +1,31 @@
+<!-- tab name: Anhänge -->
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<h4>Attachments</h4>
+</div>
+<div id="fileArea" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<!-- upload area -->
+	<div ngf-drop ngf-select ng-model="fileUploadDropBoxFiles" class="fileUploadDropBox"
+		ngf-drag-over-class="'fileUploadDropBox-hover'" ngf-multiple="true" ngf-allow-dir="true"
+		accept=".*"
+		ngf-pattern="'image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt'">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+	</div>
+	<div ngf-no-file-drop>Drag 'n Drop is not supported by your browser.</div>
+	<!-- existing file area -->
+	<div class="thumbnail" ng-repeat="(key, file) in files">
+		<small>{{file.name}}</small>
+		<div id="showFileDeleteButton{{key}}" class="showFileDeleteButton btn-sm btn-danger" role="button" ng-click="showDeleteFileButtons(key)">
+			<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+		</div>
+		<div id="hideFileDeleteButton{{key}}" class="hideFileDeleteButton btn-sm btn-grey" role="button" ng-click="hideDeleteFileButtons(key)">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		</div>
+		<div id="fileDeleteButton{{key}}" class="fileDeleteButton btn-sm btn-danger" role="button" ng-click="deleteFile(file.name,key)">
+			<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+		</div>
+		<a id="fileLinkButton{{key}}" class="fileLinkButton btn-sm btn-primary" role="button" href="{{file.path}}" target="_BLANK">
+			<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+		</a>
+	</div>
+</div>
+<div class="clearfix"></div>
