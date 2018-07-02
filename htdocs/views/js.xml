@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scripts>
+	<!-- script vendors -->
+	<script access="public" src="/views/shared/public/js/vendor/jquery-2.1.4.js"></script>
+    <script access="public" src="/views/shared/public/js/vendor/brunch.js"></script>
+    <script access="public" src="/views/shared/public/js/vendor/functions.js"></script>
+    <script access="public" src="/views/shared/public/js/vendor/pnotify.min.js"></script>
+    <script access="public" src="/views/shared/public/js/vendor/pnotify.animate.min.js"></script>
+    <script access="public" src="/views/shared/public/js/vendor/pnotify.buttons.min.js"></script>
+    <script access="public" src="/views/shared/public/js/vendor/crypto-js.min.js"></script>
+    <script access="private" src="/views/shared/js/vendor/bootstrap.min.js"></script>
+    <script access="private" src="/views/shared/js/vendor/angular.js"></script>
+    <script access="private" src="/views/shared/js/vendor/angular-route.js"></script>
+    <script access="private" src="/views/shared/js/vendor/angular-resource.js"></script>
+    <script access="private" src="/views/shared/js/vendor/angular-sanitize.js"></script>
+    <script access="private" src="/views/shared/js/vendor/angular-dialog.js"></script>
+    <script access="private" src="/views/shared/js/vendor/ui-bootstrap-tpls-0.6.0.min.js"></script>
+    <script access="private" src="/views/shared/js/vendor/ng-img-crop.min.js"></script>
+    <script access="private" src="/views/shared/js/vendor/ng-file-upload.min.js"></script>
+
+    <!-- app -->
+    <script access="private" src="/views/shared/js/app.js"></script>
+
+    <!-- services -->
+	<script access="private" src="/views/shared/js/services/users.factory.js"></script>
+    	
+	<!-- dynamic js params -->
+	<script access="public" src="/views/shared/public/js/jsParams.php" />
+
+	<!-- libs -->
+	<script access="private" src="/views/shared/libs/angular-ui-tree/dist/angular-ui-tree.js"></script>
+    
+	<!-- global filters -->
+	<script access="private" src="/views/shared/js/filters/project-filter.js"></script>
+    <script access="private" src="/views/shared/js/filters/item-filter.js"></script>
+    <script access="private" src="/views/shared/js/filters/user-filter.js"></script>
+
+</scripts>

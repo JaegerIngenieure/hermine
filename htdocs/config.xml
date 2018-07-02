@@ -1,0 +1,7 @@
+<configuration>
+	<setting key="dbHost" value="localhost" />
+	<setting key="dbUser" value="root" />
+	<setting key="dbPassword" value="" />
+	<setting key="dbName" value="jaein-hermine" />
+	<setting key="pageRoot" value="https://www.hermine.de" provideAsJsParam="true" />
+</configuration>
