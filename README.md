@@ -1,8 +1,16 @@
 # hermine
-###heritage-expedition, rubble-management &amp; intuitive nametag excavation
+heritage-expedition, rubble-management &amp; intuitive nametag excavation
+
+## latest release
+
+-https://github.com/JaegerIngenieure/hermine/releases
+
+
+## credentials
 
 - Start-Login: hermine | !123456#
-- W-LAN credetials: hermine | $hermine123
+- W-LAN: hermine | $hermine123
+
 
 ## hermine-raw setup
 
@@ -10,6 +18,7 @@
 - copy htdocs folder to your webspace
 - import the SQL Database
 - configure the "config.xml" file in the htdocs folder
+
 
 ## hermine-xampp setup
 If you want to use hermine with a standard Windows installation you can do so by following these easy steps. Administrator rights are required.
