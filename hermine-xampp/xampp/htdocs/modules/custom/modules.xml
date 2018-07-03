@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<modules>
-	<module name="Items" directory="items" class="ItemModule" />
-	<module name="Projects" directory="projects" class="ProjectsModule" />
-</modules>

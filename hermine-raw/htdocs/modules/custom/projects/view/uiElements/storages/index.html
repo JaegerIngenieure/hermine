@@ -1,0 +1,71 @@
+<!-- /*
+    hermine - heritage-expedition, rubble-management & intuitive nametag excavation
+    Copyright © 2017 Webthinker <https://www.webthinker.de/> (Alexander Kunz, Patrick Werner, Tobias Grass)
+    Concept by Jäger Ingenieure GmbH <https://www.jaeger-ingenieure.de/> (Kay-Michael Müller)
+    Sponsored by the research initiative "ZukunftBau" <https://www.forschungsinitiative.de/> of the "Federal Institute for Research on Building, Urban Affairs and Spatial Development" <https://www.bbsr.bund.de/>
+    You are not permitted to remove or edit this or any other copyright or licence information.
+
+    This file is part of hermine.
+
+    hermine is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation version 3 of the License.
+
+    hermine is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU  Affero General Public License
+    along with hermine.  If not, see <https://www.gnu.org/licenses/>. 
+*/  -->
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1>Project: {{project.name}}</h1>
+            <h2>{{storageOverview.name}} - Storage Overview</h2>
+            <h3>{{storageOverview.maxStorage}} possible storage places (100%)</h3>
+            <h3>{{storageOverview.stats.usedCount}} used ({{storageOverview.stats.usedPcts}}%)</h3>
+            <h3>{{storageOverview.maxStorage - storageOverview.stats.usedCount}} free ({{100 - storageOverview.stats.usedPcts}}%)</h3>
+        </div>
+    </div>
+    <div class="row spacer">
+        <div class="col-12">
+
+            <div class="btn clr-hermine pull-right marginBottom10 nnPrint" ng-click="print()">
+                <span class="glyphicon glyphicon-print" aria-hidden="true"></span>&nbsp;Print
+            </div>
+
+            <table class="hermine-table table table-item">
+                <thead class="hermine-table-th">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Creator</th>
+                    <th>Comment</th>
+                    <th>Category</th>
+                    <th>Grid</th>
+                    <th>Structure</th>
+                    <th>Storage</th>
+                    <th class="nnPrint text-center"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></th>
+                </tr>
+                </thead>
+                <tbody class="itemList">
+                <tr ng-repeat="item in storageOverview.items | orderBy:'item.ID'" class="userRow">
+                    {{item}}
+                    <td>{{item.ID}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.creator}}</td>
+                    <td>{{item.comment}}</td>
+                    <td>{{item.category}}</td>
+                    <td>{{item.gridX}}</td>
+                    <td>{{item.structure}}</td>
+                    <td>{{item.storage.value1}},{{item.storage.value2}},{{item.storage.value3}},{{item.storage.value4}}</td>
+                    <td class="nnPrint text-center"><a href="/items#/detail/{{item.ID}}" target="_blank" class="glyphicon glyphicon-link" aria-hidden="true"></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
