@@ -3,7 +3,7 @@ heritage-expedition, rubble-management &amp; intuitive nametag excavation
 
 ## latest release
 
--https://github.com/JaegerIngenieure/hermine/releases
+- https://github.com/JaegerIngenieure/hermine/releases
 
 
 ## credentials
