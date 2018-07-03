@@ -1,7 +1,7 @@
 <configuration>
-	<setting key="dbHost" value="localhost" />
+	<setting key="dbHost" value="hermine.local" />
 	<setting key="dbUser" value="root" />
 	<setting key="dbPassword" value="" />
 	<setting key="dbName" value="hermine" />
-	<setting key="pageRoot" value="https://localhost" provideAsJsParam="true" />
+	<setting key="pageRoot" value="hermine.local" provideAsJsParam="true" />
 </configuration>
