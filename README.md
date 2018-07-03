@@ -1,8 +1,8 @@
 # hermine
-heritage-expedition, rubble-management &amp; intuitive nametag excavation
+###heritage-expedition, rubble-management &amp; intuitive nametag excavation
 
-Start-Login: hermine | !123456#
-W-LAN credetials: hermine | $hermine123
+- Start-Login: hermine | !123456#
+- W-LAN credetials: hermine | $hermine123
 
 ## hermine-raw setup
 
