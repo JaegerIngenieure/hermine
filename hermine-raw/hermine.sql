@@ -26,90 +26,90 @@ DELIMITER $$
 --
 -- Prozeduren
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_attribute` (IN `_attributeId` INT)  BEGIN
+CREATE PROCEDURE `sp_delete_attribute` (IN `_attributeId` INT)  BEGIN
 DELETE FROM attributes WHERE attributeId = _attributeId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_attributetype` (IN `_attributeTypeId` INT)  BEGIN
+CREATE PROCEDURE `sp_delete_attributetype` (IN `_attributeTypeId` INT)  BEGIN
 DELETE FROM attributetypes WHERE attributeTypeId = _attributeTypeId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_attribute_by_group_id` (IN `_groupId` VARCHAR(100), IN `_referenceId` VARCHAR(100))  BEGIN
+CREATE PROCEDURE `sp_delete_attribute_by_group_id` (IN `_groupId` VARCHAR(100), IN `_referenceId` VARCHAR(100))  BEGIN
 DELETE 
 FROM attributes
 WHERE groupId = _groupId AND refKey = _referenceId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_attribute_by_refId_and_Type` (IN `_refKey` VARCHAR(255), IN `_attType` INT)  NO SQL
+CREATE PROCEDURE `sp_delete_attribute_by_refId_and_Type` (IN `_refKey` VARCHAR(255), IN `_attType` INT)  NO SQL
 BEGIN
 DELETE FROM attributes 
 WHERE refKey = _refKey AND attributeTypeId = _attType;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_file` (IN `_fileId` INT)  BEGIN
+CREATE PROCEDURE `sp_delete_file` (IN `_fileId` INT)  BEGIN
 DELETE FROM files WHERE fileId = _fileId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_historyentry` (IN `_historyEntryId` INT)  BEGIN
+CREATE PROCEDURE `sp_delete_historyentry` (IN `_historyEntryId` INT)  BEGIN
 DELETE FROM historyentries WHERE historyEntryId = _historyEntryId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_item_by_id` (IN `_itemId` INT)  BEGIN
+CREATE PROCEDURE `sp_delete_item_by_id` (IN `_itemId` INT)  BEGIN
 	DELETE FROM items 
     WHERE ID = _itemId;
 	commit;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_person` (IN `_personId` INT)  BEGIN
+CREATE PROCEDURE `sp_delete_person` (IN `_personId` INT)  BEGIN
 DELETE FROM persons WHERE personId = _personId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_project` (IN `_projectId` INT)  BEGIN
+CREATE PROCEDURE `sp_delete_project` (IN `_projectId` INT)  BEGIN
 	DELETE FROM projects 
     WHERE projectId = _projectId;
 	commit;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_storage` (IN `_ref` VARCHAR(255))  NO SQL
+CREATE PROCEDURE `sp_delete_storage` (IN `_ref` VARCHAR(255))  NO SQL
 BEGIN
 DELETE
 FROM `attributes`
 WHERE (`refKey` = _ref) AND (`attributeTypeId` = 8 OR `attributeTypeId` = 9 OR `attributeTypeId` = 10 OR `attributeTypeId` = 11 OR `attributeTypeId` = 12);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_user` (IN `_userId` INT)  BEGIN
+CREATE PROCEDURE `sp_delete_user` (IN `_userId` INT)  BEGIN
 DELETE
 FROM users WHERE userId = _userId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_attribute` (IN `_attributeId` INT)  BEGIN
+CREATE PROCEDURE `sp_get_attribute` (IN `_attributeId` INT)  BEGIN
 SELECT * FROM attributes WHERE attributeId = _attributeId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_attributetype` (IN `_attributeTypeId` INT)  BEGIN
+CREATE PROCEDURE `sp_get_attributetype` (IN `_attributeTypeId` INT)  BEGIN
 SELECT * FROM attributetypes WHERE attributeTypeId = _attributeTypeId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_file` (IN `_fileId` INT)  BEGIN
+CREATE PROCEDURE `sp_get_file` (IN `_fileId` INT)  BEGIN
 SELECT * FROM files WHERE fileId = _fileId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_historyentry` (IN `_historyEntryId` INT)  BEGIN
+CREATE PROCEDURE `sp_get_historyentry` (IN `_historyEntryId` INT)  BEGIN
 SELECT * FROM historyentries WHERE historyEntryId = _historyEntryId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_item` (IN `_itemId` INT)  BEGIN
+CREATE PROCEDURE `sp_get_item` (IN `_itemId` INT)  BEGIN
 SELECT * FROM items WHERE ID = _itemId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_items_with_empty_fields` (IN `_ref` VARCHAR(255))  NO SQL
+CREATE PROCEDURE `sp_get_items_with_empty_fields` (IN `_ref` VARCHAR(255))  NO SQL
 BEGIN
 SELECT *
 FROM `vw_items_with_empty_fields`
 WHERE `projectRef` = _ref;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_items_with_used_attribute` (IN `_ref` VARCHAR(255), IN `_name` VARCHAR(255), IN `_attribute` VARCHAR(255))  NO SQL
+CREATE PROCEDURE `sp_get_items_with_used_attribute` (IN `_ref` VARCHAR(255), IN `_name` VARCHAR(255), IN `_attribute` VARCHAR(255))  NO SQL
 BEGIN
 SET @collum = _attribute;
 SET @value = _name;
@@ -122,39 +122,39 @@ EXECUTE stmt;
 DEALLOCATE PREPARE stmt;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_person` (IN `_personId` INT)  BEGIN
+CREATE PROCEDURE `sp_get_person` (IN `_personId` INT)  BEGIN
 SELECT * FROM persons WHERE personId = _personId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_project_all` ()  BEGIN
+CREATE PROCEDURE `sp_get_project_all` ()  BEGIN
 SELECT * FROM projects;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_project_by_id` (IN `_projectId` INT)  BEGIN
+CREATE PROCEDURE `sp_get_project_by_id` (IN `_projectId` INT)  BEGIN
 SELECT * FROM projects WHERE projectId = _projectId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_project_by_ref` (IN `_refKey` VARCHAR(255))  NO SQL
+CREATE PROCEDURE `sp_get_project_by_ref` (IN `_refKey` VARCHAR(255))  NO SQL
 BEGIN
 SELECT * FROM projects WHERE refKey = _refKey;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_user` (IN `_userId` INT)  BEGIN
+CREATE PROCEDURE `sp_get_user` (IN `_userId` INT)  BEGIN
 SELECT * FROM vw_users WHERE userId = _userId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_user_by_username` (IN `_username` VARCHAR(50))  BEGIN
+CREATE PROCEDURE `sp_get_user_by_username` (IN `_username` VARCHAR(50))  BEGIN
 SELECT * FROM users WHERE username = _username;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_list_all_categories_for_project` (IN `_refKey` VARCHAR(255), IN `_attType` INT)  NO SQL
+CREATE PROCEDURE `sp_list_all_categories_for_project` (IN `_refKey` VARCHAR(255), IN `_attType` INT)  NO SQL
 BEGIN
 SELECT `value`
 FROM attributes
 WHERE attributeTypeId = _attType AND refKey = _refKey;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_list_all_nodes_for_project` (IN `_refKey` VARCHAR(255))  NO SQL
+CREATE PROCEDURE `sp_list_all_nodes_for_project` (IN `_refKey` VARCHAR(255))  NO SQL
 BEGIN
 SELECT DISTINCT xxx.`attributeId` AS `id`, xxx.`value` AS `name`, yyy.`value` AS `parent`, xxx.`groupId`
 FROM `attributes` as xxx
@@ -163,7 +163,7 @@ WHERE xxx.`refKey` = _refKey AND xxx.`refKey`= yyy.`refKey`
 AND xxx.`attributeTypeId` = 3 AND yyy.`attributeTypeId` = 4 AND xxx.`groupId` = yyy.`groupId`;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_list_all_storage_for_project` (IN `_ref` VARCHAR(100))  NO SQL
+CREATE PROCEDURE `sp_list_all_storage_for_project` (IN `_ref` VARCHAR(100))  NO SQL
 BEGIN
 SELECT `attributeTypeId`, `value`
 FROM `attributes`
@@ -171,19 +171,19 @@ WHERE (`refKey` = _ref) AND (`attributeTypeId` = 8 OR `attributeTypeId` = 9 OR `
 ORDER BY `groupId`,`attributeTypeId`;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_list_attribute_by_referenceId` (IN `_scope` VARCHAR(100), IN `_referenceId` INT)  BEGIN
+CREATE PROCEDURE `sp_list_attribute_by_referenceId` (IN `_scope` VARCHAR(100), IN `_referenceId` INT)  BEGIN
 SELECT attributes.* FROM attributes inner join attributetypes on attributetypes.attributeTypeId = attributes.attributeTypeId WHERE referenceId = _referenceId and scope = _scope;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_list_historyentries` (IN `_referenceId` VARCHAR(255), IN `_scope` VARCHAR(100))  BEGIN
+CREATE PROCEDURE `sp_list_historyentries` (IN `_referenceId` VARCHAR(255), IN `_scope` VARCHAR(100))  BEGIN
 	SELECT * FROM `historyentries` where `reference` = _referenceId AND scope = _scope ORDER BY created DESC;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_list_historyentriesbytype` (IN `_referenceId` INT, IN `_scope` VARCHAR(100), IN `_contactType` VARCHAR(100))  BEGIN
+CREATE PROCEDURE `sp_list_historyentriesbytype` (IN `_referenceId` INT, IN `_scope` VARCHAR(100), IN `_contactType` VARCHAR(100))  BEGIN
 	select * FROM `historyentries` where referenceId=_referenceId and scope=_scope and contactType=_contactType order by created DESC;
     END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_list_history_for_author` (IN `_authorId` INT, IN `_startDate` DATE, IN `_endDate` DATE)  BEGIN
+CREATE PROCEDURE `sp_list_history_for_author` (IN `_authorId` INT, IN `_startDate` DATE, IN `_endDate` DATE)  BEGIN
 	IF _startDate IS NULL AND _endDate IS NULL THEN
 		SELECT * FROM `vw_report_history_entries_full` WHERE author = _authorId ORDER BY CONVERT(created,DATETIME) ASC;
 	ELSEIF _endDate IS NULL THEN
@@ -195,80 +195,80 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_list_history_for_author` (IN `_a
 	END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_list_items_by_project_id` (IN `_projectRef` VARCHAR(255))  BEGIN
+CREATE PROCEDURE `sp_list_items_by_project_id` (IN `_projectRef` VARCHAR(255))  BEGIN
 	SELECT *
 	FROM items
 	WHERE `projectRef` = _projectRef;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_list_items_by_storage_name` (IN `_storageName` VARCHAR(255))  BEGIN
+CREATE PROCEDURE `sp_list_items_by_storage_name` (IN `_storageName` VARCHAR(255))  BEGIN
 	SELECT *
 	FROM items
 	WHERE `storage` LIKE CONCAT('%',_storageName,'%');
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_list_persons` ()  BEGIN
+CREATE PROCEDURE `sp_list_persons` ()  BEGIN
 SELECT * FROM persons order BY lastname, firstname ASC;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_list_user` ()  BEGIN
+CREATE PROCEDURE `sp_list_user` ()  BEGIN
 SELECT * FROM vw_users order BY lastname, firstname ASC;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_list_user_active` ()  BEGIN
+CREATE PROCEDURE `sp_list_user_active` ()  BEGIN
 SELECT * FROM vw_users where isActive=1;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_replace_attribute_value` (IN `_attributeTypeId` INT, IN `_oldValue` VARCHAR(1024), IN `_newValue` VARCHAR(1024))  BEGIN
+CREATE PROCEDURE `sp_replace_attribute_value` (IN `_attributeTypeId` INT, IN `_oldValue` VARCHAR(1024), IN `_newValue` VARCHAR(1024))  BEGIN
 	update attributes SET `value` = _newValue where attributeTypeId=_attributeTypeId AND `value`= _oldValue;
     END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_save_attribute` (IN `_type` INT, IN `_value` VARCHAR(2000), IN `_refKey` VARCHAR(255), IN `_groupId` VARCHAR(150))  BEGIN
+CREATE PROCEDURE `sp_save_attribute` (IN `_type` INT, IN `_value` VARCHAR(2000), IN `_refKey` VARCHAR(255), IN `_groupId` VARCHAR(150))  BEGIN
 INSERT INTO attributes (attributeTypeId,`value`,refKey,groupId) VALUES (_type,_value,_refKey,_groupId);
 select LAST_INSERT_ID() as insertId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_save_attributetype` (IN `_attributeTypeId` INT, IN `_name` VARCHAR(100), IN `_dataType` VARCHAR(100), IN `_parent` INT, IN `_scope` VARCHAR(50), IN `_selectionValues` VARCHAR(1024), IN `_isActive` BOOL)  BEGIN
+CREATE PROCEDURE `sp_save_attributetype` (IN `_attributeTypeId` INT, IN `_name` VARCHAR(100), IN `_dataType` VARCHAR(100), IN `_parent` INT, IN `_scope` VARCHAR(50), IN `_selectionValues` VARCHAR(1024), IN `_isActive` BOOL)  BEGIN
 INSERT INTO attributetypes (attributeTypeId,NAME,dataType,parent,scope,selectionValues,isActive) VALUES (_attributeTypeId,_name,_dataType,_parent,_scope,_selectionValues,_isActive);
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_save_file` (IN `_fileId` INT, IN `_path` VARCHAR(1024), IN `_scope` VARCHAR(20), IN `_referenceId` INT, IN `_mimeType` VARCHAR(50))  BEGIN
+CREATE PROCEDURE `sp_save_file` (IN `_fileId` INT, IN `_path` VARCHAR(1024), IN `_scope` VARCHAR(20), IN `_referenceId` INT, IN `_mimeType` VARCHAR(50))  BEGIN
 INSERT INTO files (fileId,path,scope,referenceId,mimeType) VALUES (_fileId,_path,_scope,_referenceId,_mimeType);
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_save_historyentry` (IN `_reference` VARCHAR(255), IN `_scope` VARCHAR(50), IN `_author` VARCHAR(255), IN `_content` TEXT)  BEGIN
+CREATE PROCEDURE `sp_save_historyentry` (IN `_reference` VARCHAR(255), IN `_scope` VARCHAR(50), IN `_author` VARCHAR(255), IN `_content` TEXT)  BEGIN
 INSERT INTO historyentries (reference,scope,created,author,content) 
 	VALUES (_reference,_scope,NOW(),_author,_content);
 SELECT LAST_INSERT_ID() AS 'insertId';
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_save_item` (IN `_name` VARCHAR(255), IN `_gridX` VARCHAR(10), IN `_gridY` VARCHAR(10), IN `_structure` VARCHAR(255), IN `_category` VARCHAR(255), IN `_comment` VARCHAR(255), IN `_creator` VARCHAR(255), IN `_projectRef` VARCHAR(255), IN `_refKey` VARCHAR(255))  BEGIN
+CREATE PROCEDURE `sp_save_item` (IN `_name` VARCHAR(255), IN `_gridX` VARCHAR(10), IN `_gridY` VARCHAR(10), IN `_structure` VARCHAR(255), IN `_category` VARCHAR(255), IN `_comment` VARCHAR(255), IN `_creator` VARCHAR(255), IN `_projectRef` VARCHAR(255), IN `_refKey` VARCHAR(255))  BEGIN
 INSERT INTO items (name,gridX,gridY,structure,category,`comment`,creator,`storage`,projectRef,refKey)
 VALUES (_name,_gridX,_gridY,_structure,_category,_comment,_creator,'',_projectRef,_refKey);
 SELECT last_insert_id() as insertId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_save_person` (IN `_firstname` VARCHAR(50), IN `_lastname` VARCHAR(50))  BEGIN
+CREATE PROCEDURE `sp_save_person` (IN `_firstname` VARCHAR(50), IN `_lastname` VARCHAR(50))  BEGIN
 INSERT INTO persons (firstname,lastname) VALUES (_firstname,_lastname);
 select last_insert_id() as insertId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_save_project` (IN `_name` VARCHAR(250), IN `_comment` TEXT, IN `_RefKey` VARCHAR(255))  BEGIN
+CREATE PROCEDURE `sp_save_project` (IN `_name` VARCHAR(250), IN `_comment` TEXT, IN `_RefKey` VARCHAR(255))  BEGIN
 INSERT INTO projects (projectName,`comment`, RefKey)
 VALUES (_name,_comment,_RefKey);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_save_user` (IN `_userId` INT, IN `_username` INT(20), IN `_password` INT(100), IN `_isActive` INT, IN `_isAdmin` INT, IN `_modulePermissions` VARCHAR(255))  BEGIN
+CREATE PROCEDURE `sp_save_user` (IN `_userId` INT, IN `_username` INT(20), IN `_password` INT(100), IN `_isActive` INT, IN `_isAdmin` INT, IN `_modulePermissions` VARCHAR(255))  BEGIN
 INSERT INTO users (userId,username,`password`,isActive,isAdmin,modulePermissions) VALUES (_userId,_username,_password,_isActive,_isAdmin,_modulePermissions);
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_update_attribute` (IN `_attributeId` INT, IN `_type` INT, IN `_value` VARCHAR(2000), IN `_groupId` VARCHAR(150))  BEGIN
+CREATE PROCEDURE `sp_update_attribute` (IN `_attributeId` INT, IN `_type` INT, IN `_value` VARCHAR(2000), IN `_groupId` VARCHAR(150))  BEGIN
 UPDATE attributes SET attributeId = _attributeId,
 attributeTypeId = _type,
 `value` = _value,groupId = _groupId WHERE attributeId = _attributeId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_update_attributetype` (IN `_attributeTypeId` INT, IN `_name` VARCHAR(100), IN `_dataType` VARCHAR(100), IN `_parent` INT, IN `_scope` VARCHAR(50), IN `_selectionValues` VARCHAR(1024), IN `_isActive` BOOL)  BEGIN
+CREATE PROCEDURE `sp_update_attributetype` (IN `_attributeTypeId` INT, IN `_name` VARCHAR(100), IN `_dataType` VARCHAR(100), IN `_parent` INT, IN `_scope` VARCHAR(50), IN `_selectionValues` VARCHAR(1024), IN `_isActive` BOOL)  BEGIN
 UPDATE attributetypes SET attributeTypeId = _attributeTypeId,
 NAME = _name,
 dataType = _dataType,
@@ -278,7 +278,7 @@ selectionValues = _selectionValues,
 isActive = _isActive WHERE attributeTypeId = _attributeTypeId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_update_historyentry` (IN `_historyEntryId` INT, IN `_referenceId` INT, IN `_scope` VARCHAR(50), IN `_contactType` VARCHAR(50), IN `_author` INT, IN `_content` TEXT, IN `_isPublic` BOOL, IN `_reminder` DATE, IN `_attachment` TEXT)  BEGIN
+CREATE PROCEDURE `sp_update_historyentry` (IN `_historyEntryId` INT, IN `_referenceId` INT, IN `_scope` VARCHAR(50), IN `_contactType` VARCHAR(50), IN `_author` INT, IN `_content` TEXT, IN `_isPublic` BOOL, IN `_reminder` DATE, IN `_attachment` TEXT)  BEGIN
 UPDATE historyentries SET historyEntryId = _historyEntryId,
 referenceId = _referenceId,
 scope = _scope,
@@ -291,7 +291,7 @@ attachment = _attachment,
 lastUpdate = Now() WHERE historyEntryId = _historyEntryId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_update_item` (IN `_itemRefKey` INT, IN `_name` VARCHAR(255), IN `_gridX` VARCHAR(10), IN `_gridY` VARCHAR(10), IN `_structure` VARCHAR(255), IN `_category` VARCHAR(255), IN `_comment` TEXT, IN `_storage` VARCHAR(255))  BEGIN
+CREATE PROCEDURE `sp_update_item` (IN `_itemRefKey` INT, IN `_name` VARCHAR(255), IN `_gridX` VARCHAR(10), IN `_gridY` VARCHAR(10), IN `_structure` VARCHAR(255), IN `_category` VARCHAR(255), IN `_comment` TEXT, IN `_storage` VARCHAR(255))  BEGIN
 UPDATE items SET
 name = _name,
 gridX = _gridX,
@@ -304,14 +304,14 @@ WHERE refKey = _itemRefKey;
 SELECT last_insert_id() as insertId;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_update_person` (IN `_personId` INT, IN `_firstname` VARCHAR(50), IN `_lastname` VARCHAR(50))  BEGIN
+CREATE PROCEDURE `sp_update_person` (IN `_personId` INT, IN `_firstname` VARCHAR(50), IN `_lastname` VARCHAR(50))  BEGIN
 UPDATE persons SET personId = _personId,
 firstname = _firstname,
 lastname = _lastname
 WHERE personId = _personId;
  END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_update_project` (IN `_projectId` INT, IN `_projectName` VARCHAR(255), IN `_comment` TEXT, IN `_gridX` VARCHAR(10), IN `_gridY` VARCHAR(10))  BEGIN
+CREATE PROCEDURE `sp_update_project` (IN `_projectId` INT, IN `_projectName` VARCHAR(255), IN `_comment` TEXT, IN `_gridX` VARCHAR(10), IN `_gridY` VARCHAR(10))  BEGIN
 UPDATE projects SET
 projectName = _projectName,
 `comment` = _comment,
@@ -490,7 +490,7 @@ CREATE TABLE `vw_items_with_empty_fields` (
 --
 DROP TABLE IF EXISTS `vw_items_with_empty_fields`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_items_with_empty_fields`  AS  select `items`.`ID` AS `ID`,`items`.`name` AS `name`,`items`.`gridX` AS `gridX`,`items`.`gridY` AS `gridY`,`items`.`structure` AS `structure`,`items`.`category` AS `category`,`items`.`comment` AS `comment`,`items`.`creator` AS `creator`,`items`.`storage` AS `storage`,`items`.`projectRef` AS `projectRef`,`items`.`refKey` AS `refKey` from `items` where ((`items`.`name` > '') or (`items`.`gridX` > '') or (`items`.`structure` > '') or (`items`.`category` > '') or (`items`.`comment` > '') or (`items`.`storage` > '')) ;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_items_with_empty_fields`  AS  select `items`.`ID` AS `ID`,`items`.`name` AS `name`,`items`.`gridX` AS `gridX`,`items`.`gridY` AS `gridY`,`items`.`structure` AS `structure`,`items`.`category` AS `category`,`items`.`comment` AS `comment`,`items`.`creator` AS `creator`,`items`.`storage` AS `storage`,`items`.`projectRef` AS `projectRef`,`items`.`refKey` AS `refKey` from `items` where ((`items`.`name` > '') or (`items`.`gridX` > '') or (`items`.`structure` > '') or (`items`.`category` > '') or (`items`.`comment` > '') or (`items`.`storage` > '')) ;
 
 --
 -- Indizes der exportierten Tabellen
