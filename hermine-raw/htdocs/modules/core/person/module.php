@@ -52,7 +52,8 @@ class PersonModule extends AbstractModuleBase {
     }
 
     public function buildObject($params) {
-        $result = $this -> controller -> getDatabaseController() -> executeQuery("SELECT * FROM vw_persons");
+        
+        $result = $this->controller->getDatabaseController()->executeQuery("SELECT * FROM vw_persons");
 
         $persons = array();
         while ($row = mysqli_fetch_array($result))

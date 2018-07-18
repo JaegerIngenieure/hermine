@@ -50,36 +50,74 @@ table.filters label {
 	line-height:20px;
 }
 
-#itemSearchResults {
+#itemSearchResults,
+#StorageValue1SearchResults,
+#StorageValue2SearchResults,
+#StorageValue3SearchResults,
+#StorageValue4SearchResults {
     position: absolute;
     z-index: 9999;
-    width: 49%;
 }
-#itemSearchResults > div.list-group-item {
+#itemSearchResults > div.list-group-item,
+#StorageValue1SearchResults > div.list-group-item,
+#StorageValue2SearchResults > div.list-group-item,
+#StorageValue3SearchResults > div.list-group-item,
+#StorageValue4SearchResults > div.list-group-item {
 	position:relative;
 	height: 40px;
 	color: black;
 }
 #itemSearchResults a,
-#itemSearchResults a:hover {
+#itemSearchResults a:hover,
+#StorageValue1SearchResults a,
+#StorageValue1SearchResults a:hover,
+#StorageValue2SearchResults a,
+#StorageValue2SearchResults a:hover,
+#StorageValue3SearchResults a,
+#StorageValue3SearchResults a:hover,
+#StorageValue4SearchResults a,
+#StorageValue4SearchResults a:hover {
 	color:inherit;
 	text-decoration:none;
 }
-#itemSearchResults input[type=checkbox] {
+#itemSearchResults input[type=checkbox],
+#StorageValue1SearchResults input[type=checkbox],
+#StorageValue2SearchResults input[type=checkbox],
+#StorageValue3SearchResults input[type=checkbox],
+#StorageValue4SearchResults input[type=checkbox] {
 	position:absolute;
 	left:10px;
 	top:10px;
 }
-#itemSearchResults a.content {
+#itemSearchResults a.content,
+#StorageValue1SearchResults a.content,
+#StorageValue2SearchResults a.content,
+#StorageValue3SearchResults a.content,
+#StorageValue4SearchResults a.content {
 	position:absolute;
 	width:75%;
 	left:30px;
 	top:10px;
 }
-#itemSearchResults div.btn-group {
+#itemSearchResults div.btn-group,
+#StorageValue1SearchResults div.btn-group,
+#StorageValue2SearchResults div.btn-group,
+#StorageValue3SearchResults div.btn-group,
+#StorageValue4SearchResults div.btn-group {
 	position:absolute;
 	right:10px;
 	top:10px;
+}
+
+#StorageValue2SearchResults {
+    margin-left: 85px;
+}
+#StorageValue3SearchResults {
+    margin-left: 170px;
+}
+#StorageValue4SearchResults{
+    margin-left: 255px;
+    margin-top: 0px;
 }
 
 #itemDetailTeaser table tr {
@@ -267,7 +305,8 @@ table td .grid {
 
 .inputStorage {
     float: left;
-    margin-right: 10px;
+    margin-right: 5px;
+    padding: 5px 5px;
 }
 
 .itemTextarea{
@@ -300,4 +339,15 @@ table td .grid {
 
 .category{
 	margin: 0 10px;
+}
+
+.list-group-grid {
+    width: 150px;
+    text-align: center;
+}
+
+.list-group-val {
+    width: 80px;
+    text-align: center;
+    margin-top: 35px;
 }

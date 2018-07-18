@@ -25,9 +25,10 @@
 class HistoryAdapter extends AbstractAdapterBase {
 
   	// queries
-  	private $query_save_historyentry = "CALL sp_save_historyentry ('{reference}','{scope}','{author}','{content}');";
-	private $query_update_historyentry = "CALL sp_update_historyentry ('historyEntryId','reference','scope','contactType','author','content','isPublic','reminder','attachment');";
-	private $query_list_historyentry_for_reference = "CALL sp_list_historyentries('{refKey}','{scope}');";
+  	private $query_save_historyentry 				= "CALL sp_save_historyentry ('{reference}','{scope}','{author}','{content}');";
+	private $query_update_historyentry 				= "CALL sp_update_historyentry ('historyEntryId','reference','scope','contactType','author','content','isPublic','reminder','attachment');";
+	private $query_delete_historyentry 				= "CALL sp_delete_historyentry_by_reference ('{ref}');";
+	private $query_list_historyentry_for_reference 	= "CALL sp_list_historyentries('{refKey}','{scope}');";
 
 	// fields
 	private $authModule;
@@ -66,6 +67,23 @@ class HistoryAdapter extends AbstractAdapterBase {
 		}
 
 		return $returnValue;
+	}
+
+	function deleteHistoryEntryByRef($ref)
+	{
+		$query = str_replace("{ref}", $ref, $this->query_delete_historyentry);
+		$result = true;
+
+		try
+		{
+			$this->databaseController->executeInsertQuery($query);
+		}
+		catch (Exception $ex)
+		{
+			$result = false;
+		}
+
+		return $result;
 	}
 
 	function getHistoryEntryForReferenceId($refKey,$scope) {

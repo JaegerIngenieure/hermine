@@ -54,14 +54,22 @@
 
 		//export whole project
         $scope.exportProject = function() {
-
-            //execute export function
-            $.post("ajax/projects/exportProject",{},function(response) {
-                BRUNCH.notify("success","Export","Export has successfully been created.");
-                window.open(response.url,"_blank");
-            },"json").fail(function(response) {
-                BRUNCH.notify("error","Error","An error occurred while creating the export: '"+response.responseText+"'");
-            });
+            
+            if ($scope.allProjects.length > 0)
+            {
+                //execute export function
+                $.post("ajax/projects/exportProject",{},function(response) {
+                    BRUNCH.notify("success","Export","Export has successfully been created.");
+                    window.open(response.url,"_blank");
+                },"json").fail(function(response) {
+                    BRUNCH.notify("error","Error","An error occurred while creating the export: '"+response.responseText+"'");
+                });    
+            }
+            else
+            {
+                BRUNCH.notify("error","Error","No projects are available.");
+            }
+            
         };
 
         //import whole project

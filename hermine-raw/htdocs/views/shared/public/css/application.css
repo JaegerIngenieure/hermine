@@ -52,6 +52,8 @@ a {color:#365f91;}
 .bold {font-weight:bold;}
 
 .inputSize50px {width: 50px;}
+.inputSize70px {width: 70px;}
+.inputSize80px {width: 80px;}
 
 .inputSize15 {width: 15%;}
 .inputSize25 {width: 24%;}
@@ -217,7 +219,7 @@ div.panel.well.tabsContent table tr {
 	height:35px;
 }
 div.panel.well.tabsContent table tr td:first-child {
-	width:40%;
+	width:30%;
 }
 div.panel.well.tabsContent table tr td:last-child {
 	width:60%;

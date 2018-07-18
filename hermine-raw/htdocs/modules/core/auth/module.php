@@ -58,24 +58,24 @@ class AuthenticationModule extends AbstractModuleBase {
     function login($params) {
 		include_once (dirname(__FILE__)."/../model/error.php");
 
-        $user = $this -> adapter['user']->getUserByUsername($params['username'],true);
+        $user = $this->adapter['user']->getUserByUsername($params['username'],true);
 
         if ($user != null) {
             if ($user -> isActive) {
 
                 // verify password
-                if ($this->verifyPassword($user -> password,$params["password"])) {
+                if ($this->verifyPassword($user->password,$params["password"])) {
                 	//remove password from object
                 	unset($user->password);
 					$_SESSION['user'] = $user;
                 } else {
-                    $user = new BrunchError($this -> key, 2, "Invalid Password", "login");
+                    $user = new BrunchError($this -> key, 0, "Invalid credentials", "login");
                 }
             } else {
-                $user = new BrunchError($this -> key, 1, "Inactive Useraccount", "login");
+                $user = new BrunchError($this -> key, 0, "Invalid credentials", "login");
             }
         } else {
-            $user = new BrunchError($this -> key, 0, "Invalid Username", "login");
+            $user = new BrunchError($this -> key, 0, "Invalid credentials", "login");
         }
 
         return $user;

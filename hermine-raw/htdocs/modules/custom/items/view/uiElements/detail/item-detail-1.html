@@ -23,7 +23,7 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<h4>Item</h4>
 </div>
-	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 		<table>
 			<tr>
 				<td>Creator</td>
@@ -52,15 +52,15 @@
 			<tr>
 				<td>Grid</td>
 				<td>
-					<input type="text" class="form-control grid" placeholder="Select Grid" maxlength="4" ng-model="searchText">
+					<input type="text" class="form-control grid text-center" placeholder="Select Grid ({{currentProject.gridX}}{{currentProject.gridY}})" maxlength="4" ng-model="searchText">
 					
-					<div class="list-group" id="itemSearchResults">
+					<div class="list-group list-group-grid" id="itemSearchResults">
 						<div class="list-group-item" ng-click="setGridXValue(gridX)" ng-if="searchText" ng-repeat="gridX in gridCombinations | filter:searchText | limitTo:7">
 							<h4 class="list-group-item-heading">{{gridX}}</h4>
 						</div>
 					</div>
 					
-					<input id="GridX" placeholder="Grid" type="text" class="form-control grid" ng-model="currentItem.gridX" disabled/>
+					<input id="GridX" placeholder="Grid" type="text" class="form-control grid text-center" ng-model="currentItem.gridX" disabled/>
 				</td>
 			</tr>
 			<tr>
@@ -70,22 +70,45 @@
 						
 						<select class="form-control marginTop5" ng-options="option.name for option in frontendObject.storage.template track by option.name" ng-model="frontendObject.storage.temp"></select>
 						
-						<input type="text" ng-if="frontendObject.storage.temp" ng-value="frontendObject.storage.temp.value1" class="form-control marginTop5 inputSize50px text-center inputStorage" disabled/>
-						<input type="text" ng-if="frontendObject.storage.temp" ng-value="frontendObject.storage.temp.value2" class="form-control marginTop5 inputSize50px text-center inputStorage" disabled/>
-						<input type="text" ng-if="frontendObject.storage.temp" ng-value="frontendObject.storage.temp.value3" class="form-control marginTop5 inputSize50px text-center inputStorage" disabled/>
-						<input type="text" ng-if="frontendObject.storage.temp" ng-value="frontendObject.storage.temp.value4" class="form-control marginTop5 inputSize50px text-center" disabled/>
+						<input type="text" placeholder="({{frontendObject.storage.temp.value1}})" class="form-control marginTop5 inputSize80px text-center inputStorage" maxlength="2" ng-model="storageVal1"/>
+						<div class="list-group list-group-val" id="StorageValue1SearchResults">
+							<div class="list-group-item" ng-click="setStorageValue(1, valC1)" ng-if="storageVal1" ng-repeat="valC1 in frontendObject.storage.temp.value1Combi | filter:storageVal1 | limitTo:7">
+								<h4 class="list-group-item-heading">{{valC1}}</h4>
+							</div>
+						</div>
 
-						<input type="text" ng-if="frontendObject.storage" ng-model="frontendObject.storage.selected.value1" ng-value="frontendObject.storage.selected.value1" class="form-control marginTop5 inputSize50px text-center inputStorage" maxlength="2"/>
-						<input type="text" ng-if="frontendObject.storage" ng-model="frontendObject.storage.selected.value2" ng-value="frontendObject.storage.selected.value2" class="form-control marginTop5 inputSize50px text-center inputStorage" maxlength="2"/>
-						<input type="text" ng-if="frontendObject.storage" ng-model="frontendObject.storage.selected.value3" ng-value="frontendObject.storage.selected.value3" class="form-control marginTop5 inputSize50px text-center inputStorage" maxlength="2"/>
-						<input type="text" ng-if="frontendObject.storage" ng-model="frontendObject.storage.selected.value4" ng-value="frontendObject.storage.selected.value4" class="form-control marginTop5 inputSize50px text-center" maxlength="2"/>
+						<input type="text" placeholder="({{frontendObject.storage.temp.value2}})" class="form-control marginTop5 inputSize80px text-center inputStorage" maxlength="2" ng-model="storageVal2"/>
+						<div class="list-group list-group-val" id="StorageValue2SearchResults">
+							<div class="list-group-item" ng-click="setStorageValue(2, valC2)" ng-if="storageVal2" ng-repeat="valC2 in frontendObject.storage.temp.value2Combi | filter:storageVal2 | limitTo:7">
+								<h4 class="list-group-item-heading">{{valC2}}</h4>
+							</div>
+						</div>
+
+						<input type="text" placeholder="({{frontendObject.storage.temp.value3}})" class="form-control marginTop5 inputSize80px text-center inputStorage" maxlength="2" ng-model="storageVal3"/>
+						<div class="list-group list-group-val" id="StorageValue3SearchResults">
+							<div class="list-group-item" ng-click="setStorageValue(3, valC)" ng-if="storageVal3" ng-repeat="valC in frontendObject.storage.temp.value3Combi | filter:storageVal3 | limitTo:7">
+								<h4 class="list-group-item-heading">{{valC}}</h4>
+							</div>
+						</div>
+
+						<input type="text" placeholder="({{frontendObject.storage.temp.value4}})" class="form-control marginTop5 inputSize80px text-center" maxlength="2" ng-model="storageVal4"/>
+						<div class="list-group list-group-val" id="StorageValue4SearchResults">
+							<div class="list-group-item" ng-click="setStorageValue(4, valC)" ng-if="storageVal4" ng-repeat="valC in frontendObject.storage.temp.value4Combi | filter:storageVal4 | limitTo:7">
+								<h4 class="list-group-item-heading">{{valC}}</h4>
+							</div>
+						</div>
+
+						<input type="text" ng-if="frontendObject.storage" ng-model="frontendObject.storage.selected.value1" ng-value="frontendObject.storage.selected.value1" class="form-control marginTop5 inputSize80px text-center inputStorage" disabled/>
+						<input type="text" ng-if="frontendObject.storage" ng-model="frontendObject.storage.selected.value2" ng-value="frontendObject.storage.selected.value2" class="form-control marginTop5 inputSize80px text-center inputStorage" disabled/>
+						<input type="text" ng-if="frontendObject.storage" ng-model="frontendObject.storage.selected.value3" ng-value="frontendObject.storage.selected.value3" class="form-control marginTop5 inputSize80px text-center inputStorage" disabled/>
+						<input type="text" ng-if="frontendObject.storage" ng-model="frontendObject.storage.selected.value4" ng-value="frontendObject.storage.selected.value4" class="form-control marginTop5 inputSize80px text-center" disabled/>
 					</div>
 				</td>
 			</tr>			
 		</table>
 	</div>
 	
-	<div class="col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-sm-6 col-xs-12">
+	<div class="col-lg-5 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
 		<table class="profilePicture">
 			<tr>
 				<td>

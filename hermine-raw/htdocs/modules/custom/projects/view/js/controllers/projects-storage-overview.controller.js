@@ -81,6 +81,11 @@
                     BRUNCH.hideSpinner();
                 });
 			});
-		});
+        });
+        
+        $scope.print = function () {
+			window.print();
+		}
+
 	}]);
 })();

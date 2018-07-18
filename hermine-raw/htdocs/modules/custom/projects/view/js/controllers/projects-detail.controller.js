@@ -32,6 +32,9 @@
 
 		$scope.files 			= [];
 
+		$scope.test = [];
+		$scope.onlyNumbers = /^\d+$/;
+
 		//get current user
 		$scope.currentUser = {};
 		BRUNCH.showSpinner();
@@ -294,17 +297,17 @@
 							<span class="glyphicon glyphicon-search" aria-hidden="true">
 						</button>
 
-						<div>	
+						<div style="display: flex;">
 							<input type="text" value="01" class="form-control marginTop5 inputSize50px text-center inputStorage" disabled/>
 							<input type="text" value="01" class="form-control marginTop5 inputSize50px text-center inputStorage" disabled/>
 							<input type="text" value="01" class="form-control marginTop5 inputSize50px text-center inputStorage" disabled/>
 							<input type="text" value="01" class="form-control marginTop5 inputSize50px text-center" style="float: left;	margin-right: 10px;" disabled/>
 						</div>
 						
-						<input type="text" placeholder="99" class="form-control marginTop5 inputSize50px text-center inputStorage" maxlength="2"/>
-						<input type="text" placeholder="99" class="form-control marginTop5 inputSize50px text-center inputStorage" maxlength="2"/>
-						<input type="text" placeholder="99" class="form-control marginTop5 inputSize50px text-center inputStorage" maxlength="2"/>
-						<input type="text" placeholder="99" class="form-control marginTop5 inputSize50px text-center" maxlength="2"/>
+						<input type="text" value="0" class="form-control marginTop5 inputSize50px text-center inputStorage" maxlength="2"/>
+						<input type="text" value="0" class="form-control marginTop5 inputSize50px text-center inputStorage" maxlength="2"/>
+						<input type="text" value="0" class="form-control marginTop5 inputSize50px text-center inputStorage" maxlength="2"/>
+						<input type="text" value="0" class="form-control marginTop5 inputSize50px text-center" maxlength="2"/>
 					</div>
 					<hr>
 					`;
@@ -329,21 +332,45 @@
 				$.post("ajax/projects/saveStorage", currentAttribute, function (response) {
 
 					currentAttribute.attributeValue 	= storage[3];
+
+					if (currentAttribute.attributeValue == "")
+					{
+						currentAttribute.attributeValue = 0;
+					}
+
 					currentAttribute.attributeTypeId 	= 9;				
 					
 					$.post("ajax/projects/saveStorage", currentAttribute, function (response) {
 
 						currentAttribute.attributeValue 	= storage[4];
+
+						if (currentAttribute.attributeValue == "")
+						{
+							currentAttribute.attributeValue = 0;
+						}
+
 						currentAttribute.attributeTypeId 	= 10;
 						
 						$.post("ajax/projects/saveStorage", currentAttribute, function (response) {
 
 							currentAttribute.attributeValue 	= storage[5];
+
+							if (currentAttribute.attributeValue == "")
+							{
+								currentAttribute.attributeValue = 0;
+							}
+
 							currentAttribute.attributeTypeId 	= 11;
 							
 							$.post("ajax/projects/saveStorage", currentAttribute, function (response) {
 
 								currentAttribute.attributeValue 	= storage[6];
+
+								if (currentAttribute.attributeValue == "")
+								{
+									currentAttribute.attributeValue = 0;
+								}
+
 								currentAttribute.attributeTypeId 	= 12;
 								
 								$.post("ajax/projects/saveStorage", currentAttribute, function (response) {
@@ -353,13 +380,13 @@
 									BRUNCH.notify("error", "Error", "An error occurred while saving the storage attributes: '" + response.responseText + "'");
 								});
 
-							}, "json").fail(function (response) {});
+							}, "json").fail(function () {});
 
-						}, "json").fail(function (response) {});
+						}, "json").fail(function () {});
 
-					}, "json").fail(function (response) {});
+					}, "json").fail(function () {});
 
-				}, "json").fail(function (response) {});				
+				}, "json").fail(function () {});				
 			}
 		};
 
@@ -389,7 +416,7 @@
 
 			$.post("ajax/projects/deleteStorage", data, function (response) {
 				$scope.filterStrorage();
-			}, "json").fail(function (response) {});
+			}, "json").fail(function () {});
 					
 		};
 
@@ -567,7 +594,7 @@
 
 		$scope.print = function () {
 			window.print();
-		}		
+		}
 
         //storage overview
         $scope.openStorageOverview = function(storageName) {

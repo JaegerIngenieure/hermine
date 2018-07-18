@@ -71,6 +71,8 @@
 				ProjectFactory.getAllStoragesForProject($scope.currentProject.refKey, true).then(function(data) {
 					$scope.storage = $filter("filterStorage")(data);
 					$scope.frontendObject.storage = $filter("filterStorageforFrontend")($scope.storage, $scope.currentItem.storage);
+					console.log("$scope.frontendObject.storage");
+					console.log($scope.frontendObject.storage);
 					BRUNCH.hideSpinner();
 				});				
 								
@@ -133,6 +135,39 @@
 			$scope.searchText = "";
 		};
 
+		$scope.setStorageValue = function (selection, newVal)
+		{
+			switch (selection)
+			{
+				case 1:
+
+					$scope.frontendObject.storage.selected.value1 = newVal;
+					$scope.storageVal1 = "";					
+					break;
+
+				case 2:
+
+					$scope.frontendObject.storage.selected.value2 = newVal;
+					$scope.storageVal2 = "";					
+					break;
+
+				case 3:
+
+					$scope.frontendObject.storage.selected.value3 = newVal;
+					$scope.storageVal3 = "";					
+					break;
+
+				case 4:
+
+					$scope.frontendObject.storage.selected.value4 = newVal;
+					$scope.storageVal4 = "";					
+					break;
+			
+				default:
+					break;
+			}
+		};
+
 		$scope.saveOrUpdateItem = function() {
 
 			BRUNCH.showSpinner();
@@ -144,7 +179,17 @@
 				$scope.newStorage.value2 	= $scope.frontendObject.storage.selected.value2;
 				$scope.newStorage.value3 	= $scope.frontendObject.storage.selected.value3;
 				$scope.newStorage.value4 	= $scope.frontendObject.storage.selected.value4;
-				$scope.currentItem.storage = $scope.newStorage;
+				$scope.currentItem.storage 	= $scope.newStorage;
+			}
+			else
+			{
+				$scope.newStorage.value1 = 0;  
+				$scope.newStorage.value2 = 0; 
+				$scope.newStorage.value3 = 0; 
+				$scope.newStorage.value4 = 0;
+
+				console.log("$scope.currentItemOld");
+				console.log($scope.currentItemOld);				
 			}
 
 			var data = {
@@ -159,21 +204,36 @@
 				projectRef: $scope.currentItem.refKey,
 				refKey: $scope.currentItem.refKey
 			};			
-			
-			$.post("ajax/items/saveOrUpdateItem",data,function(response) {
-				BRUNCH.notify("success","Successfully saved","Item was saved.");
-
-				$scope.saveHistoryforChangedData($scope.currentItemOld, $scope.currentItem);
-
-				setTimeout(function(){
-					location.reload();
+						
+			$.post("ajax/items/checkItemName",data,function(response)
+			{
+				if(response.existing)
+				{
+					BRUNCH.notify("error","Error","Item name already exists.");
 					BRUNCH.hideSpinner();
-				}, 1000);
+				}
+				else
+				{
+					$.post("ajax/items/saveOrUpdateItem",data,function(response) {
+						BRUNCH.notify("success","Successfully saved","Item was saved.");
+		
+						$scope.saveHistoryforChangedData($scope.currentItemOld, $scope.currentItem);
+		
+						setTimeout(function(){
+							location.reload();
+							BRUNCH.hideSpinner();
+						}, 1000);
+						
+					},"json").fail(function(response) {
+						BRUNCH.notify("error","Error","An error occurred while saving the item: '"+response.responseText+"'");
+						BRUNCH.hideSpinner();
+					});
+				}
 				
 			},"json").fail(function(response) {
-				BRUNCH.notify("error","Error","An error occurred while saving the item: '"+response.responseText+"'");
+				BRUNCH.notify("error","Error","Item name already exists.");
 				BRUNCH.hideSpinner();
-			});
+			});			
 		};
 
 		$scope.addAdditionalInput = function(areaId,inputType,inputClass) {
@@ -247,9 +307,20 @@
 				$scope.newcat = $scope.getActiveCategories();
 				$scope.saveHistoryEntry($scope.currentUser.fullname + " changed categories from " + oldItem.category.replace(/#/g,", ") + " to " + $scope.newcat.replace(/#/g,", "));
 			}
-			if (oldItem.storage != null && oldItem.storage.name != newItem.storage.name)
+			
+			if(oldItem.storage != null)
 			{
-				$scope.saveHistoryEntry($scope.currentUser.fullname + " changed storage from " + oldItem.storage.name + "("+oldItem.storage.value1+","+oldItem.storage.value2+","+oldItem.storage.value3+","+oldItem.storage.value4+")" + " to " + newItem.storage.name + "("+newItem.storage.value1+","+newItem.storage.value2+","+newItem.storage.value3+","+newItem.storage.value4+")");
+				if ((oldItem.storage != null && oldItem.storage.name != newItem.storage.name) || (oldItem.storage.value1 != newItem.storage.value1) || (oldItem.storage.value2 != newItem.storage.value2) || (oldItem.storage.value3 != newItem.storage.value3) || (oldItem.storage.value4 != newItem.storage.value4))
+				{
+					if (oldItem.storage.name == undefined)
+					{
+						$scope.saveHistoryEntry($scope.currentUser.fullname + " changed storage from not assigned to " + newItem.storage.name + " ("+newItem.storage.value1+","+newItem.storage.value2+","+newItem.storage.value3+","+newItem.storage.value4+")");			
+					}
+					else
+					{
+						$scope.saveHistoryEntry($scope.currentUser.fullname + " changed storage from " + oldItem.storage.name + " ("+oldItem.storage.value1+","+oldItem.storage.value2+","+oldItem.storage.value3+","+oldItem.storage.value4+")" + " to " + newItem.storage.name + " ("+newItem.storage.value1+","+newItem.storage.value2+","+newItem.storage.value3+","+newItem.storage.value4+")");
+					}
+				}
 			}
 		};
 
@@ -309,6 +380,7 @@
 			angular.element("#fileDeleteButton"+key).hide();
 			angular.element("#fileLinkButton"+key).removeClass("moveDownloadButton");
 		};
+
 		$scope.deleteFile = function(fileName,key) {
 			var data = {
 				moduleKey: "item",
@@ -362,9 +434,36 @@
 				}
 			});
 		};
+
 		$scope.deleteSelectedProfileImage = function() {
 			$scope.pickedProfileImage	= false;
 			$scope.croppedDataUrl		= false;
+		};
+
+		$scope.deleteProfileImage = function() {
+			var data = {
+				moduleKey: "item",
+                filePath: $scope.currentProject.name +"/"+ $scope.currentItem.name  + "/images/profile.png"
+			};
+
+			$.post("ajax/files/deleteFile",data,function() {
+				
+			},"json").fail(function(response) {
+				BRUNCH.notify("error","Error","An error occurred while deleting the item folder: '"+response.responseText+"'");
+			});
+		};
+
+		$scope.deleteItemFolder = function(path) {
+			var data = {
+				moduleKey: "item",
+                folderPath: $scope.currentProject.name +"/"+ $scope.currentItem.name + path
+			};
+
+			$.post("ajax/files/deleteFolder",data,function() {				
+				
+			},"json").fail(function(response) {
+				BRUNCH.notify("error","Error","An error occurred while deleting the item folder: '"+response.responseText+"'");
+			});
 		};
 		
 		/* ########## delete Item ########## */
@@ -428,15 +527,28 @@
 			//create data
 			var data = {};
 			data.itemId	= $scope.currentItem.ID;
+			data.ref	= $scope.currentItem.refKey;
 
 			//delete attribute
 			BRUNCH.showSpinner();
-			$.post("ajax/items/deleteItemById",data,function(response) {
-				BRUNCH.notify("success","Delete successfully","Item deleted. Redirecting.");
-				setTimeout(function() {
-					BRUNCH.navigateTo(window.location.pathname);
+			$.post("ajax/items/deleteItemById",data,function(response)
+			{
+				$.post("ajax/items/deleteHistoryEntryByRef",data,function(response)
+				{
+					$scope.deleteProfileImage();
+					$scope.deleteItemFolder("/images/");
+					$scope.deleteItemFolder("/files/");
+					
+					setTimeout(function() {
+						$scope.deleteItemFolder("/");
+						BRUNCH.navigateTo(window.location.pathname);
+						BRUNCH.hideSpinner();
+					},2200);
+
+				},"json").fail(function(response) {
 					BRUNCH.hideSpinner();
-				},2200);				
+				});				
+
 			},"json").fail(function(response) {
 				BRUNCH.notify("error","Error","An error occurred while deleting the item: '"+response.responseText+"'");
 				BRUNCH.hideSpinner();

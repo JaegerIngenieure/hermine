@@ -60,7 +60,7 @@
 						<td>GridY</td>
 						<td>
 							<input value="1" type="text" class="form-control inputSize50px inputGrid text-center" ng-disabled="true"/>
-							<input id="gridY" placeholder="99" type="text" class="form-control inputSize50px text-center" ng-model="project.gridY" maxlength="2"/>
+							<input id="gridY" placeholder="99" type="text" class="form-control inputSize50px text-center" ng-model="project.gridY" maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
 						</td>
 					</tr>
 				</tbody>
@@ -89,17 +89,17 @@
 									<span class="glyphicon glyphicon-search" aria-hidden="true">
 								</button>
 								
-								<div>
+								<div style="display: flex;">
 									<input type="text" value="01" class="form-control marginTop5 inputSize50px text-center inputStorage" disabled/>
 									<input type="text" value="01" class="form-control marginTop5 inputSize50px text-center inputStorage" disabled/>
 									<input type="text" value="01" class="form-control marginTop5 inputSize50px text-center inputStorage" disabled/>
 									<input type="text" value="01" class="form-control marginTop5 inputSize50px text-center" style="float: left;	margin-right: 10px;" disabled/>
 								</div>
 
-								<input type="text" value="{{stor.value1}}" class="form-control marginTop5 inputSize50px text-center inputStorage" maxlength="2"/>
-								<input type="text" value="{{stor.value2}}" class="form-control marginTop5 inputSize50px text-center inputStorage" maxlength="2"/>
-								<input type="text" value="{{stor.value3}}" class="form-control marginTop5 inputSize50px text-center inputStorage" maxlength="2"/>
-								<input type="text" value="{{stor.value4}}" class="form-control marginTop5 inputSize50px text-center" maxlength="2"/>
+								<input type="text" value="{{stor.value1}}" placeholder="99" class="form-control marginTop5 inputSize50px text-center inputStorage" maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
+								<input type="text" value="{{stor.value2}}" placeholder="99" class="form-control marginTop5 inputSize50px text-center inputStorage" maxlength="2" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
+								<input type="text" value="{{stor.value3}}" placeholder="99" class="form-control marginTop5 inputSize50px text-center inputStorage" maxlength="2"onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
+								<input type="text" value="{{stor.value4}}" placeholder="99" class="form-control marginTop5 inputSize50px text-center" maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
 								<br />
 								<button type="button" class="btn clr-hermine" ng-click="openStorageOverview(stor.name)">
 									<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>&nbsp;Storage Overview

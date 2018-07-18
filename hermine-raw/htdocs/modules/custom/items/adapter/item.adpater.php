@@ -30,6 +30,7 @@ class ItemAdapter extends AbstractAdapterBase {
     private $query_getItemByStorage	= "CALL sp_list_items_by_storage_name('{name}');";
 	private $query_updateItem 		= "CALL sp_update_item('{refKey}','{name}','{gridX}','{gridY}','{structure}','{category}','{comment}','{storage}');";
 	private $query_deleteItemById 	= "CALL sp_delete_item_by_id ('{itemId}');";
+	private $query_checkItemName 	= "CALL sp_checkItemName ('{itemName}','{refKey}');";
 
 	private $personModule;
 
@@ -101,6 +102,25 @@ class ItemAdapter extends AbstractAdapterBase {
 			$id = $result[0]['insertId'];
 		}
 		return $id;
+	}
+
+	function checkItemName($itemName, $ref)
+	{
+		$query = str_replace("{itemName}", $itemName, $this->query_checkItemName);
+		$query = str_replace('{refKey}', $ref, $query);
+		$result = array("existing" => false);
+		
+		$response = $this->databaseController->executeStoredProcedureToArray($query);
+		
+		//$output = "'{refKey}', $ref ".count($response)."";
+		//echo $output;
+
+		if(count($response) > 0)
+		{
+			$result["existing"] = true;
+		}
+
+		return $result;
 	}
 	
 	

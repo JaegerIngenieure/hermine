@@ -23,9 +23,9 @@
 */ 
 
 class FilesModule extends AbstractModuleBase {
-    public $name = "Files Module";
-    public $description = "the module to manages file handling";
-    public $key = "files";
+    public $name 		= "Files Module";
+    public $description = "Module to manages file handling";
+    public $key 		= "files";
 
 
     function __construct($controller) {
@@ -194,18 +194,65 @@ class FilesModule extends AbstractModuleBase {
 		$path		= dirname(__FILE__)."/data/".$moduleKey."/".$filePath;
 
 		//check if file exists
-		if(!file_exists($path)) {
-			$error			= "File does not exist.";
-		} else {
-			if(!unlink($path)) {
-				$error			= "File could not be deleted.";
+		if(!file_exists($path))
+		{
+			$error = "File does not exist.";
+		}
+		else
+		{
+			if(!unlink($path))
+			{
+				$error = "File could not be deleted.";
 			}
 		}
 
 		//check error
-		if(!$error) {
+		if(!$error)
+		{
 			return array("error" => false);
-		} else {
+		}
+		else
+		{
+			//return error
+			return array("error" => true, "message" => $error);
+		}
+	}
+
+	/**
+	 * function will delete specific folder
+	 * $params["moduleKey"]
+	 * $params["path"]
+	 */
+	function deleteFolder($params) {
+
+		//get vars
+		$moduleKey	= $params["moduleKey"];
+		$folderPath	= $params["folderPath"];
+		$error		= false;
+
+		//build vars
+		$path		= dirname(__FILE__)."/data/".$moduleKey."/".$folderPath;
+
+		//check if folder exists
+		if(!is_dir($path))
+		{
+			$error = "Folder does not exist.";
+		}
+		else
+		{
+			if(!rmdir($path))
+			{
+				$error = "Folder could not be deleted.";
+			}
+		}
+
+		//check error
+		if(!$error)
+		{
+			return array("error" => false);
+		}
+		else
+		{
 			//return error
 			return array("error" => true, "message" => $error);
 		}

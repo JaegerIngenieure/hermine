@@ -126,6 +126,13 @@ class ItemModule extends AbstractModuleBase {
 		return $itemId;
 	}
 
+	function checkItemName($params) {
+
+		$responce = $this->adapters['item']->checkItemName($params['name'], $params['refKey']);
+
+		return $responce;
+	}	
+
 	/**
 	 * saves as new attribute or updates a existing one
 	 */
@@ -175,6 +182,11 @@ class ItemModule extends AbstractModuleBase {
 		$entry->content 		= $params['content'];
 
 		return $this->adapters['history']->saveOrUpdateHistoryEntry($entry);
+	}
+
+	function deleteHistoryEntryByRef ($params)
+	{
+		return $this->adapters['history']->deleteHistoryEntryByRef($params['ref']);
 	}
 
 	function getHistoryEntryForReferenceId($params) {

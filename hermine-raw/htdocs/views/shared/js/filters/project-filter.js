@@ -267,6 +267,28 @@
 			var temp = {};
 			var data = {};
 
+			data = {
+				selected: {
+					name: "",
+					value1: 0,
+					value2: 0,
+					value3: 0,
+					value4: 0
+				}
+			}		
+
+			function valueCombi(val)
+			{
+				var arrC = [];
+
+				for (let y = 0; y <= val; y++)
+				{
+					arrC.push(y);
+				}
+
+				return arrC;
+			}
+
 			if (itemStorage != null)
 			{
 				for (const i in projectStorage)
@@ -280,8 +302,18 @@
 								value1: projectStorage[i].value1,
 								value2: projectStorage[i].value2,
 								value3: projectStorage[i].value3,
-								value4: projectStorage[i].value4							
+								value4: projectStorage[i].value4,
+								value1Combi: [],
+								value2Combi: [],
+								value3Combi: [],
+								value4Combi: []
 							}
+
+							temp.value1Combi = valueCombi(temp.value1);
+							temp.value2Combi = valueCombi(temp.value2);
+							temp.value3Combi = valueCombi(temp.value3);
+							temp.value4Combi = valueCombi(temp.value4);
+
 							break;
 						}
 					}
@@ -298,6 +330,17 @@
 				}
 			}
 			
+			for (const i in projectStorage)
+			{
+				if (projectStorage.hasOwnProperty(i))
+				{
+					projectStorage[i].value1Combi = valueCombi(projectStorage[i].value1);
+					projectStorage[i].value2Combi = valueCombi(projectStorage[i].value2);
+					projectStorage[i].value3Combi = valueCombi(projectStorage[i].value3);
+					projectStorage[i].value4Combi = valueCombi(projectStorage[i].value4);					
+				}
+			}	
+
 			data.template 	= projectStorage;
 			data.temp 		= temp;
 			

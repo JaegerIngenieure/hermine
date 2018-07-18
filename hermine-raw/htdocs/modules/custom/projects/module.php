@@ -462,6 +462,7 @@ class ProjectsModule extends AbstractModuleBase {
             $zip->extractTo($location);
             $zip->close();
         } else {
+            echo "Archive could not be extracted.";
             return false;
         }
 
@@ -469,12 +470,26 @@ class ProjectsModule extends AbstractModuleBase {
         $tables         = array("attributes","historyentries","items","projects");
         foreach($tables as $table) {
             if(!file_exists($location.$table.".csv")) {
+                echo "Expected dumps not existing.";
                 return false;
             }
         }
 
         //get database controller
         $dbController   = $this->controller->getDatabaseController();
+
+        //check if all project refs are unique
+        $row = 1;
+        if (($handle = fopen($location."projects.csv", "r")) !== FALSE) {
+            while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                $num = count($data);
+                if(count($this->getProjectByRef(array("projectRef" => $data[$num-1]))) > 0) {
+                    echo "Exactly same project already exists.";
+                    return false;
+                }
+            }
+            fclose($handle);
+        }
 
         //import all dumps and delete afterwards
         foreach($tables as $table) {
