@@ -55,12 +55,14 @@ class BodyController {
 		$labelMenuCode		= '
 			<div class="labelNavigationElement '.$startCurrent.'" onclick="BRUNCH.navigateTo(\'/\');">Start</div>
 		';
-		foreach($moduleController->getAllModules() as $module) {
+		foreach($moduleController->getAllModules() as $module)
+		{
 			if ($module->showAtHome == true)
 			{
 				if ($authModule->hasUserAnyPermissionsForModule($module->key))
 				{
-		        	$currentModuleCss	= ($module->key == $currentModule) ? "currentModule" : "";
+
+				    $currentModuleCss	= ($module->key == $currentModule) ? "currentModule" : "";
 		        	$labelMenuCode .= '
 		        		<div class="labelNavigationElement '.$currentModuleCss.'" onclick="BRUNCH.navigateTo(\'/'.$module->key.'\');">'.$module->name.'</div>
 		        	';

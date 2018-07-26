@@ -29,7 +29,7 @@ class ProjectsModule extends AbstractModuleBase {
     // this is the equivalent ot the url path for the module
     public $description 		= "Management of projects";
     public $title 				= "Projects";
-    public $permissions 		= array("100" => "Framework Administrator", "90" => "Administrator", "70" => "Moderator");
+    public $permissions 		= array("100" => "Framework Administrator", "90" => "Administrator", "70" => "Supervisor");
     public $hasAdminPanel 		= true;
     public $hasUserAdminPanel 	= true;
 	public $showAtHome 			= true;

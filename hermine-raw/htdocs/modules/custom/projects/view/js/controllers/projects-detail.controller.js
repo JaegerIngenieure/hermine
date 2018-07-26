@@ -40,6 +40,29 @@
 		BRUNCH.showSpinner();
 		UsersFactory.getCurrentUser(false).then(function(data) {
 			$scope.currentUser = data;
+
+            //check for user permission and redirect if on start page
+            if($filter("getPerms")($scope.currentUser.permissions,"projects") < 70)
+            {
+                if(window.location.hash.includes("/evaluation"))
+                {
+					console.log("Worker-Evaluation-Access");
+				}
+				else if(window.location.hash.includes("/storages-overview/"))
+				{
+                    console.log("Worker-storages-overview-Access");
+				}
+				else
+				{
+                    BRUNCH.navigateTo(BRUNCH.config.pageRoot+window.location.pathname+"#/detail/worker/"+$routeParams.id);
+				}
+            }
+
+            if($filter("getPerms")($scope.currentUser.permissions,"projects") < 90)
+            {
+                angular.element("#deleteProjectButton").addClass("wt_hidden");
+            }
+
 			BRUNCH.hideSpinner();
 		});
 
@@ -109,9 +132,9 @@
 				title: name,
 				nodes: []
 			});
-			$scope.ngDialog.close()
+			$scope.ngDialog.close();
 			$scope.reloadStructure();
-		}
+		};
 
 		$scope.newSubItem = function(scope, name) {
 			var nodeData = scope.$modelValue;
@@ -238,7 +261,7 @@
 					$scope.project.structure = $scope.data;
 				});
 			},500);
-		}
+		};
 
 		$scope.updateProject = function() {
 
@@ -406,7 +429,7 @@
 				$scope.saveStorageAttributes(value);				
 				value = [];				
 			});
-		}
+		};
 
 		$scope.deleteStorage = function(ref) {
 
@@ -517,9 +540,15 @@
 				scope: $scope
 			});
 		};
-		
+
 		/* ########## delete Project ########## */
 		$scope.deleteProjectHandler = function() {
+
+            if($filter("getPerms")($scope.currentUser.permissions,"projects") < 90)
+            {
+                BRUNCH.notify("error","Error","No permission to delete this project");
+            	return false;
+            }
 
 			//check if button is armed
 			if(angular.element("#deleteProjectButton").hasClass("armed")) {
@@ -589,17 +618,36 @@
 
 		//item evaluation
 		$scope.openevaluation = function () {
-            window.location.href = window.location.href+"/evaluation";
-		}
+
+            if($filter("getPerms")($scope.currentUser.permissions,"projects") < 70)
+            {
+                // window.location.href = window.location.origin+"/projects#/detail/"+$routeParams.id+"/evaluation";
+                // BRUNCH.navigateTo(BRUNCH.config.pageRoot+window.location.pathname+"#/detail/worker/"+projectId);
+                BRUNCH.navigateTo(window.location.origin+"/projects#/detail/"+$routeParams.id+"/evaluation");
+                // console.log(window.location.origin+"/projects#/detail/"+$routeParams.id+"/evaluation");
+            }
+            else
+			{
+				window.location.href = window.location.href+"/evaluation";
+			}
+		};
 
 		$scope.print = function () {
 			window.print();
-		}
+		};
 
         //storage overview
         $scope.openStorageOverview = function(storageName) {
-		    window.location.href = window.location.href + "/storages-overview/" + encodeURI(storageName);
-		}
+
+            if($filter("getPerms")($scope.currentUser.permissions,"projects") < 70)
+            {
+                BRUNCH.navigateTo(window.location.origin+"/projects#/detail/"+$routeParams.id+"/storages-overview/" + encodeURI(storageName));
+            }
+            else
+            {
+                window.location.href = window.location.href + "/storages-overview/" + encodeURI(storageName);
+            }
+		};
 		
 		//watch for dropped files in fileUploadDropBoxFiles
 		$scope.$watch('fileUploadDropBoxFiles', function () {

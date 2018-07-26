@@ -24,22 +24,29 @@
 
 	$authModule	= $this->controller->getModule('auth');
 
-	$importBtn= "";
+	$importBtn      = "";
+    $addProjectBtn  = "";
 		
 	if($authModule->getUserPermissionForModule($this->key) > 85)
-		{
-			$importBtn .= '
-	 			<!-- upload area -->
-                <div ngf-drop ngf-select ng-model="importFile" class="btn clr-hermine no-margin-right marginBottom10"
-                    ngf-multiple="false" ngf-allow-dir="false" accept=".zip"
-                    ngf-pattern="\'.zip\'">
-                    <span class="glyphicon glyphicon-open-file" aria-hidden="true"></span>&nbsp;Import
-                </div>
-				<div class="btn clr-hermine no-margin-right marginBottom10" ng-click="exportProject()">
-					<span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>&nbsp;Export
-				</div>				
-	 			';
-		}
+    {
+        $importBtn .= '
+            <!-- upload area -->
+            <div ngf-drop ngf-select ng-model="importFile" class="btn clr-hermine no-margin-right marginBottom10"
+                ngf-multiple="false" ngf-allow-dir="false" accept=".zip"
+                ngf-pattern="\'.zip\'">
+                <span class="glyphicon glyphicon-open-file" aria-hidden="true"></span>&nbsp;Import
+            </div>
+            <div class="btn clr-hermine no-margin-right marginBottom10" ng-click="exportProject()">
+                <span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>&nbsp;Export
+            </div>				
+            ';
+
+        $addProjectBtn .= '
+            <div class="btn clr-hermine pull-right no-margin-right marginBottom10" ng-click="showNewProjectDialog()">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Project
+            </div>
+            ';
+    }
 ?>
 
 <div class="container">
@@ -57,9 +64,9 @@
 				echo $importBtn;
 			?>
 
-			<div class="btn clr-hermine pull-right no-margin-right marginBottom10" ng-click="showNewProjectDialog()">
-				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Project
-			</div>
+            <?php
+                echo $addProjectBtn;
+            ?>
 
 			<table class="table hermine-table">
 				<thead>

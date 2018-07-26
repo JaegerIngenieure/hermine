@@ -39,4 +39,26 @@
 		};
 	});
 
+    angular.module("hermine").filter("filterForSupervisor", function() {
+
+    	return function(usersObject) {
+            var returnValue = [];
+
+            for (var key in usersObject)
+            {
+                // skip loop if the property is from prototype
+                if (!usersObject.hasOwnProperty(key)) continue;
+
+                var obj = usersObject[key];
+
+                if(obj.permissions["auth"] < 90 || obj.permissions["items"] < 90 || obj.permissions["projects"] < 90)
+                {
+                    returnValue.push(obj);
+				}
+            }
+
+            return returnValue;
+        };
+    });
+
 })();

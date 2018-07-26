@@ -31,7 +31,7 @@ class AuthenticationModule extends AbstractModuleBase {
     public $description = "The Module to manages the authentication data";
     public $key         = "auth";
     public $adapter     = array();
-    public $permissions = array("100" => "Framework Administrator", "90" => "Administrator", "70" => "Moderator", "50" => "User");
+    public $permissions = array("100" => "Framework Administrator", "90" => "Administrator", "70" => "Supervisor", "50" => "Worker");
 
     function __construct($controller) {
         parent::__construct($controller);
@@ -84,7 +84,8 @@ class AuthenticationModule extends AbstractModuleBase {
     /**
      * logs out the current user
      */
-    function logout($params) {
+    function logout()
+    {
         session_unset();
 
         $return = array("error" => false);
@@ -134,23 +135,28 @@ class AuthenticationModule extends AbstractModuleBase {
     function getContent() {
 
         //get user and user role
-        $user		= $this -> getUser();
-        $userRole	= $user -> permissions[$this -> key];
-		$pageRoot	= $this -> controller -> getContextController() -> pageRoot;
+        $user		= $this->getUser();
+        $userRole	= $user->permissions[$this->key];
+		$pageRoot	= $this->controller->getContextController()->pageRoot;
 
 		//if user not logged in show login screen
-		if(!$user) {
+		if(!$user)
+		{
 			include dirname(__FILE__) . "/view/module.view.php";
 
 		//if user has no access redirect to page root
-		} elseif ($user != null && intval($userRole) < 30) {
+		}
+		elseif ($user != null && intval($userRole) < 30)
+        {
 			echo '
 			<script>
 				BRUNCH.navigateTo("'.$pageRoot.'");
 			</script>
 			';
 			exit();
-        } else {
+        }
+        else
+        {
         	//write js vars
 	        echo "<script>
 					//pageRoot
@@ -162,20 +168,25 @@ class AuthenticationModule extends AbstractModuleBase {
     function getHtmlForUserList() {
 		include_once (dirname(__FILE__)."/../model/error.php");
 
-    	if($this->isLoggedIn() && $this->getUserPermissionForModule($this->key) >= 90) {
+    	if($this->isLoggedIn() && $this->getUserPermissionForModule($this->key) > 55)
+    	{
 			include_once(dirname(__file__)."/view/uiElements/list-users.php");
-    	} else {
+    	}
+    	else
+    	{
     		die();
-    		//return new BrunchError($this -> key, 0, "No permissions", "getHtmlForUserList");
     	}
     }
 
 	function getHtmlForEditUserSettings() {
 		include_once (dirname(__FILE__)."/../model/error.php");
 
-		if($this->isLoggedIn() && $this->getUserPermissionForModule($this->key) > 0) {
+		if($this->isLoggedIn() && $this->getUserPermissionForModule($this->key) > 0)
+		{
 			include_once(dirname(__file__)."/view/uiElements/edit-settings.php");
-		} else {
+		}
+		else
+		{
 			return new BrunchError($this -> key, 0, "No permissions", "getHtmlForEditUserSettings");
 		}
 	}
@@ -194,17 +205,20 @@ class AuthenticationModule extends AbstractModuleBase {
         include dirname(__FILE__) . "/view/module.view.php";
     }
 
-    function getUser() {
+    function getUser()
+    {
 		return $_SESSION["user"];
     }
 
-    function getUserFromDB($params = null,$withPw = false) {
+    function getUserFromDB($params = null, $withPw = false)
+    {
     	$user				= $this->adapter['user']->getUserByUserId($_SESSION['user']->userId,$withPw);
 		$_SESSION['user']	= $user;
 		return $user;
     }
 
-    function getUserById($params = null) {
+    function getUserById($params = null)
+    {
         $id = $params['userId'];
 
         return $this -> adapter['user'] -> getUserByUserId($id);
@@ -213,11 +227,20 @@ class AuthenticationModule extends AbstractModuleBase {
     /**
      * Resolves the full List of the users
      */
-    function getFullUserList($params = null) {
-        return $this -> adapter['user'] -> getFullUserList();
+    function getFullUserList()
+    {
+        if($this->getUserPermissionForModule($this->key) > 60)
+        {
+            return $this -> adapter['user'] -> getFullUserList();
+        }
+        else
+        {
+            die();
+        }
     }
 
-    function getActiveUserList($params) {
+    function getActiveUserList()
+    {
         return $this -> adapter['user'] -> getActiveUserList();
     }
 
@@ -238,9 +261,7 @@ class AuthenticationModule extends AbstractModuleBase {
 			}
 		}
 
-		$personModule = $this->controller->getModule('person');
-
-		//set new passwort
+		//set new password
 		if($params["password"])
 		{
 			$params["password"] = $this->cryptPassword($params["password"]);
@@ -251,7 +272,14 @@ class AuthenticationModule extends AbstractModuleBase {
 
     function removeUser($params)
     {
-        return $this->adapter['user']->removeUserByPersonId($params['id']);
+        if($this->getUserPermissionForModule($this->key) > 60)
+        {
+            return $this -> adapter['user'] -> getFullUserList();
+        }
+        else
+        {
+            die();
+        }
     }
 
     /*------------------------------- permissions handling -----------------------------------------------*/
@@ -273,7 +301,8 @@ class AuthenticationModule extends AbstractModuleBase {
     /**
      * checks if the user has any permission
      */
-    function hasUserAnyPermissionsForModule($key) {
+    function hasUserAnyPermissionsForModule($key)
+    {
         $requestedModule = $this -> controller -> getModule($key);
         $permissions = false;
 
@@ -303,7 +332,8 @@ class AuthenticationModule extends AbstractModuleBase {
     /**
      * returns the permission for the current user for the specified module id
      */
-    function getUserPermissionForModule($key) {
+    function getUserPermissionForModule($key)
+    {
         $requestedModule = $this -> controller -> getModule($key);
         $permission = null;
 

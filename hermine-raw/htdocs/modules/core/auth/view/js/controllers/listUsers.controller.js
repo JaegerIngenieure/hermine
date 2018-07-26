@@ -26,6 +26,7 @@
 		//set vars
 		$scope.user			= {};
 		$scope.allUsers		= {};
+        $scope.filteredUsers= {};
 		$scope.newUser		= {};
 		$scope.dialog		= {};
 
@@ -35,14 +36,18 @@
 			$scope.user				= data;			
 			
 			//check for user permission and redirect if on start page
-			if($filter("getPerms")($scope.user.permissions,"auth") >= 90) {
+			if($filter("getPerms")($scope.user.permissions,"auth") > 55)
+			{
 				//get all users
 				BRUNCH.showSpinner();
 				UsersFactory.getAllUsers(false).then(function(allUsers) {
-					$scope.allUsers				= allUsers;
+					$scope.allUsers			= allUsers;
+                    $scope.filteredUsers	= $filter("filterForSupervisor")($scope.allUsers);
 					BRUNCH.hideSpinner();
 				});
-			} else {
+			}
+			else
+			{
 				$scope.navigateTo($scope.user.userId);
 			}
 			BRUNCH.hideSpinner();
@@ -73,6 +78,12 @@
 				$scope.createUserLock = true;
 			}
 
+			var perm = {
+                "auth": "50",
+                "items": "50",
+                "projects": "50"
+			};
+
 			//collect data
 			var data = {
 				personId:		0,
@@ -82,7 +93,7 @@
 				username:		$scope.newUser.username,
 				isActive:		($scope.newUser.isActive) ? "1" : "0",
 				isAdmin:		($scope.newUser.isAdmin) ? "1" : "0",
-				permissions:	{},
+				permissions:	perm,
 				password:		hashGlobalPass($scope.newUser.newpass,$scope.newUser.username)
 			};
 

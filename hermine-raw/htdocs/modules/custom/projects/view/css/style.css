@@ -334,3 +334,7 @@ box-sizing: border-box;
 .cBlack{
 	color: #000;
 }
+
+.wt_hidden {
+	display: none;
+}

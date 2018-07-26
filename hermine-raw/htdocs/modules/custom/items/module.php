@@ -29,7 +29,7 @@ class ItemModule extends AbstractModuleBase {
     // this is the equivalent ot the url path for the module
     public $description 		= "Management of Items";
     public $title 				= "Items";
-    public $permissions 		= array("50" => "Moderator");
+    public $permissions 		= array("50" => "Supervisor");
     public $hasAdminPanel 		= true;
     public $hasUserAdminPanel 	= true;
 	public $showAtHome 			= true;

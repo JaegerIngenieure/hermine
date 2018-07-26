@@ -33,7 +33,17 @@
 		BRUNCH.showSpinner();
 		UsersFactory.getCurrentUserFromDB(true).then(function(currentUser) {
 			//check for user permission and redirect depending on result
-			if($filter("getPerms")(currentUser.permissions,"auth") >= 90) {
+
+            if($filter("getPerms")(currentUser.permissions,"auth") == 70)
+            {
+                $scope.userRoles = {
+                    50: "Worker",
+                    70: "Supervisor"
+                };
+                console.log($scope.userRoles);
+            }
+
+			if($filter("getPerms")(currentUser.permissions,"auth") > 55) {
 				//get all users
 				BRUNCH.showSpinner();
 				UsersFactory.getAllUsers(true).then(function(allUsers) {
@@ -45,6 +55,10 @@
 						$scope.user			= $scope.allUsers[$routeParams.id];
 						$scope.user.isAdmin	= ($scope.user.isAdmin == "1") ? true : false;
 
+                        if(($filter("getPerms")(currentUser.permissions,"auth") < 90) && ($scope.user.permissions.auth > 89 || $scope.user.permissions.items > 89 || $scope.user.permissions.projects > 89))
+                        {
+                            BRUNCH.navigateTo(BRUNCH.config.pageRoot+window.location.pathname+"#/detail/"+currentUser.userId);
+                        }
 					}
 					else
 					{

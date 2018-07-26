@@ -23,6 +23,22 @@
 (function() {
 	angular.module("hermine").controller("ProjectsController",["$scope", "ProjectFactory", "UsersFactory", "ngDialog", "Upload", function($scope,ProjectFactory,UsersFactory,ngDialog,Upload) {
 
+        //get current user
+        $scope.currentUser = {};
+        BRUNCH.showSpinner();
+        UsersFactory.getCurrentUser(false).then(function(data) {
+            $scope.currentUser = data;
+
+            if ($scope.currentUser.defaultProject != "" && parseInt($scope.currentUser.permissions.items) < 90)
+            {
+                ProjectFactory.getProjectByRef($scope.currentUser.defaultProject, true).then(function(data) {
+                    $scope.currentProject	= data;
+                    BRUNCH.navigateTo("/projects#/detail/"+$scope.currentProject.Id);
+                });
+            }
+
+            BRUNCH.hideSpinner();
+        });
 
 		//get all projects
 		$scope.allProjects = [];
@@ -40,15 +56,7 @@
 			});
 		};
 
-		//get current user
-		$scope.currentUser = {};
-		BRUNCH.showSpinner();
-		UsersFactory.getCurrentUser(false).then(function(data) {
-			$scope.currentUser = data;
-			BRUNCH.hideSpinner();
-		});
-
-		$scope.detailRedirect = function (id) {
+        $scope.detailRedirect = function (id) {
 			BRUNCH.navigateTo("/projects#/detail/"+id);
 		};
 

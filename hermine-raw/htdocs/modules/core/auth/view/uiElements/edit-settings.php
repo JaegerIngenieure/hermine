@@ -21,7 +21,7 @@
 */  -->
 
 <?php
-	$hasPermissions	=(intval($_SESSION["user"]->permissions["auth"]) >= 90) ? true : false;
+	$hasPermissions	=(intval($_SESSION["user"]->permissions["auth"]) > 55) ? true : false;
 ?>
 
 <div class="container">
@@ -93,7 +93,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td>Administrator?</td>
+									<td>User Admin?</td>
 									<td>
 										<input id="isAdmin" type="checkbox" class="form-control" ng-model="user.isAdmin"/>
 									</td>
@@ -110,7 +110,7 @@
 									<td colspan="2"><strong>Permissions</strong></td>
 								</tr>
 								<tr>
-									<td>Settings</td>
+									<td>User</td>
 									<td><select name="auth" class="modulePerms form-control">
 											<option ng-repeat="(nativePermValue, permName) in userRoles" value="{{nativePermValue}}" ng-selected="user.permissions.auth==nativePermValue">{{permName}}</option>
 										</select>

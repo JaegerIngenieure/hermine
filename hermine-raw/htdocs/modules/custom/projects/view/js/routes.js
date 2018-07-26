@@ -42,6 +42,13 @@
 				reloadOnSearch: false
 			})
 
+            .when("/detail/worker/:id", {
+                templateUrl: "modules/custom/projects/view/uiElements/detail/worker/index.html",
+                controller: "ProjectsDetailController",
+                controllerAs: "projectsDetailCtrl",
+                reloadOnSearch: false
+            })
+
 			.when("/detail/:id/evaluation", {
 				templateUrl: "modules/custom/projects/view/uiElements/evaluation/index.html",
 				controller: "ProjectsDetailController",

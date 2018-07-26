@@ -229,7 +229,6 @@ var BRUNCH = BRUNCH || {
 BRUNCH.customData.userRoles		= {
 	"100" : "Framework Administrator",
 	"90" : "Administrator",
-	"70" : "Moderator",
-	"50" : "User",
-	"0" : "- None -",
+	"70" : "Supervisor",
+	"50" : "Worker"
 };
