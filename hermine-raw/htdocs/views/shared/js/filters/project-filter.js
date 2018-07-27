@@ -264,8 +264,8 @@
 	angular.module("hermine").filter("filterStorageforFrontend", function () {
 		return function(projectStorage, itemStorage){
 
-			var temp = {};
-			var data = {};
+			let temp = {};
+			let data = {};
 
 			data = {
 				selected: {
@@ -275,11 +275,25 @@
 					value3: 0,
 					value4: 0
 				}
-			}		
+			};
+
+            let defaultData = {
+                name: "not stored",
+                value1: 0,
+                value2: 0,
+                value3: 0,
+                value4: 0,
+                value1Combi: [0],
+                value2Combi: [0],
+                value3Combi: [0],
+                value4Combi: [0]
+
+            };
+            projectStorage.push(defaultData);
 
 			function valueCombi(val)
 			{
-				var arrC = [];
+				let arrC = [];
 
 				for (let y = 0; y <= val; y++)
 				{
@@ -307,7 +321,7 @@
 								value2Combi: [],
 								value3Combi: [],
 								value4Combi: []
-							}
+							};
 
 							temp.value1Combi = valueCombi(temp.value1);
 							temp.value2Combi = valueCombi(temp.value2);
@@ -343,7 +357,21 @@
 
 			data.template 	= projectStorage;
 			data.temp 		= temp;
-			
+
+			/*let test = {
+                name: "not stored",
+                value1: 0,
+                value2: 0,
+                value3: 0,
+                value4: 0,
+                value1Combi: [0],
+                value2Combi: [0],
+                value3Combi: [0],
+                value4Combi: [0]
+
+			};
+			data.template.push(test);*/
+
 			return data;
 		};
 	});

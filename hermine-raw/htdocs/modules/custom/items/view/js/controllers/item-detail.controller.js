@@ -72,7 +72,8 @@
 					$scope.storage = $filter("filterStorage")(data);
 					$scope.frontendObject.storage = $filter("filterStorageforFrontend")($scope.storage, $scope.currentItem.storage);
 					console.log("$scope.frontendObject.storage");
-					console.log($scope.frontendObject.storage);
+                    console.log($scope.frontendObject.storage);
+
 					BRUNCH.hideSpinner();
 				});				
 								
@@ -180,6 +181,14 @@
 				$scope.newStorage.value3 	= $scope.frontendObject.storage.selected.value3;
 				$scope.newStorage.value4 	= $scope.frontendObject.storage.selected.value4;
 				$scope.currentItem.storage 	= $scope.newStorage;
+
+                if($scope.newStorage.name === "not stored")
+                {
+                    $scope.newStorage.value1 = 0;
+                    $scope.newStorage.value2 = 0;
+                    $scope.newStorage.value3 = 0;
+                    $scope.newStorage.value4 = 0;
+                }
 			}
 			else
 			{
@@ -187,9 +196,6 @@
 				$scope.newStorage.value2 = 0; 
 				$scope.newStorage.value3 = 0; 
 				$scope.newStorage.value4 = 0;
-
-				console.log("$scope.currentItemOld");
-				console.log($scope.currentItemOld);				
 			}
 
 			var data = {
