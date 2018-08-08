@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.1
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 02. Jul 2018 um 15:04
--- Server-Version: 10.1.33-MariaDB
--- PHP-Version: 7.2.6
+-- Erstellungszeit: 08. Aug 2018 um 12:43
+-- Server-Version: 10.1.28-MariaDB
+-- PHP-Version: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -26,6 +26,14 @@ DELIMITER $$
 --
 -- Prozeduren
 --
+CREATE PROCEDURE `sp_checkItemName` (IN `_name` VARCHAR(255), IN `_ref` VARCHAR(255))  NO SQL
+BEGIN
+SELECT *
+FROM items
+WHERE name = _name
+AND refKey != _ref;
+END$$
+
 CREATE PROCEDURE `sp_delete_attribute` (IN `_attributeId` INT)  BEGIN
 DELETE FROM attributes WHERE attributeId = _attributeId;
  END$$
@@ -50,8 +58,8 @@ CREATE PROCEDURE `sp_delete_file` (IN `_fileId` INT)  BEGIN
 DELETE FROM files WHERE fileId = _fileId;
  END$$
 
-CREATE PROCEDURE `sp_delete_historyentry` (IN `_historyEntryId` INT)  BEGIN
-DELETE FROM historyentries WHERE historyEntryId = _historyEntryId;
+CREATE PROCEDURE `sp_delete_historyentry_by_reference` (IN `_ref` VARCHAR(255))  BEGIN
+DELETE FROM historyentries WHERE reference = _ref;
  END$$
 
 CREATE PROCEDURE `sp_delete_item_by_id` (IN `_itemId` INT)  BEGIN
@@ -311,12 +319,13 @@ lastname = _lastname
 WHERE personId = _personId;
  END$$
 
-CREATE PROCEDURE `sp_update_project` (IN `_projectId` INT, IN `_projectName` VARCHAR(255), IN `_comment` TEXT, IN `_gridX` VARCHAR(10), IN `_gridY` VARCHAR(10))  BEGIN
+CREATE PROCEDURE `sp_update_project` (IN `_projectId` INT, IN `_projectName` VARCHAR(255), IN `_comment` TEXT, IN `_gridX` VARCHAR(10), IN `_gridY` VARCHAR(10), IN `_iframe` VARCHAR(255))  BEGIN
 UPDATE projects SET
 projectName = _projectName,
 `comment` = _comment,
 gridX = _gridX,
-gridY = _gridY
+gridY = _gridY,
+iframe = _iframe
 WHERE projectId = _projectId;
  END$$
 
@@ -436,6 +445,7 @@ CREATE TABLE `projects` (
   `gridX` varchar(10) DEFAULT NULL,
   `gridY` varchar(10) DEFAULT NULL,
   `comment` text CHARACTER SET latin1,
+  `iframe` varchar(255) NOT NULL,
   `refKey` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -593,7 +603,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT für Tabelle `attributes`
 --
 ALTER TABLE `attributes`
-  MODIFY `attributeId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `attributeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=866;
 
 --
 -- AUTO_INCREMENT für Tabelle `attributetypes`
@@ -605,31 +615,31 @@ ALTER TABLE `attributetypes`
 -- AUTO_INCREMENT für Tabelle `historyentries`
 --
 ALTER TABLE `historyentries`
-  MODIFY `historyEntryId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `historyEntryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
 
 --
 -- AUTO_INCREMENT für Tabelle `items`
 --
 ALTER TABLE `items`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT für Tabelle `persons`
 --
 ALTER TABLE `persons`
-  MODIFY `personId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `personId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT für Tabelle `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `projectId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `projectId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
