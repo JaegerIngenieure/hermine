@@ -338,3 +338,6 @@ box-sizing: border-box;
 .wt_hidden {
 	display: none;
 }
+iframe {
+	background-color: white;
+}

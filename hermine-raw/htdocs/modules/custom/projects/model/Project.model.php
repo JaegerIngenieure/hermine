@@ -29,6 +29,7 @@ class Project  {
 	public $comment;
 	public $gridX;
 	public $gridY;
+    public $iframe;
 	public $refKey;
 	
 	public function __construct() {

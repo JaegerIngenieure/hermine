@@ -31,7 +31,7 @@ class ProjectAdapter extends AbstractAdapterBase {
 	// sp names
 	private $sp_create_project 			= "CALL sp_save_project('#name#','#comment#','#refKey#');";
 	private $query_delete_project 		= "CALL sp_delete_project(#projectId#);";
-	private $sp_update_project 			= "CALL sp_update_project('#projectId#','#name#','#comment#','#gridX#','#gridY#');";
+	private $sp_update_project 			= "CALL sp_update_project('#projectId#','#name#','#comment#','#gridX#','#gridY#','#iframe#');";
 	private $sp_get_project_by_id 		= "CALL sp_get_project_by_id(#id#);";
 	private $sp_get_project_by_ref 		= "CALL sp_get_project_by_ref('{ref}');";
 	private $query_getFullProjectList 	= "CALL sp_get_project_all();";
@@ -91,6 +91,7 @@ class ProjectAdapter extends AbstractAdapterBase {
 				$query = str_replace("#comment#", $project->comment, $query);
 				$query = str_replace("#gridX#", $project->gridX, $query);
 				$query = str_replace("#gridY#", $project->gridY, $query);
+                $query = str_replace("#iframe#", $project->iframe, $query);
 			}
 
 			$this->databaseController->executeInsertQuery($query);
@@ -219,6 +220,7 @@ class ProjectAdapter extends AbstractAdapterBase {
 			$project->comment 	= $row['comment'];
 			$project->gridX 	= $row['gridX'];
 			$project->gridY 	= $row['gridY'];
+            $project->iframe 	= $row['iframe'];
 			$project->refKey 	= $row['refKey'];
 
 			array_push($allProjects, $project);
@@ -236,6 +238,7 @@ class ProjectAdapter extends AbstractAdapterBase {
 		$project->comment 	= $row['comment'];
 		$project->gridX 	= $row['gridX'];
 		$project->gridY 	= $row['gridY'];
+        $project->iframe 	= $row['iframe'];
 		$project->refKey 	= $row['refKey'];
 
 		return $project;

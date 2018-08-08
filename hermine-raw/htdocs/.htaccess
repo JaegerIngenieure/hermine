@@ -30,6 +30,7 @@ RewriteCond %{REQUEST_URI} !/index.php
 RewriteCond %{REQUEST_URI} !/views/.*
 RewriteCond %{REQUEST_URI} !/models/.*
 RewriteCond %{REQUEST_URI} !/controller/.*
+RewriteCond %{REQUEST_URI} !/archiv/.*
 RewriteCond %{REQUEST_URI} !.*\.css
 RewriteCond %{REQUEST_URI} !.*\.png
 RewriteCond %{REQUEST_URI} !.*\.jpg
