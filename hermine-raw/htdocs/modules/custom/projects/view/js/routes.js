@@ -59,7 +59,7 @@
             .when("/detail/:id/storages-overview/:id2", {
                 templateUrl: "modules/custom/projects/view/uiElements/storages/index.html",
                 controller: "ProjectsStorageOverviewController",
-                controllerAs: "ProjectsStorageOverviewCtrl",
+                controllerAs: "ProjectsStorageOverviewCtrl"
             })
 
 			//otherwise fallback

@@ -285,7 +285,7 @@
 				$scope.project.gridY = 99;
 			}
 
-			var data = {
+			let data = {
 				Id: $scope.project.id,
 				name: $scope.project.name,
 				comment: $scope.project.comment,
@@ -480,7 +480,7 @@
 		$scope.saveAttribute = function(attribute)
 		{
 			//create new data
-			var data = {};
+			let data = {};
 			data.attributeValue		= attribute.attributeValue;
 			data.attributeTypeId	= attribute.attributeTypeId;
 			data.refId				= attribute.refId;
@@ -497,7 +497,7 @@
 		$scope.saveStructureNode = function(attribute)
 		{
 			//create new data
-			var data = {};
+			let data = {};
 
 			data.attributeId		= attribute.attID;
 			data.attributeValue		= attribute.attributeValue;
@@ -516,7 +516,7 @@
 		$scope.removeStructureNode = function(attribute, ref)
 		{
 			//create new data
-			var data = {};
+			let data = {};
 			
 			data.attributeId		= attribute.id;
 			data.refId				= ref;
@@ -607,7 +607,7 @@
 		$scope.deleteProject = function() {
 
 			//create data
-			var data = {};
+			let data = {};
 			data.projectId	= $scope.currentProject.Id;
 
 			//delete project

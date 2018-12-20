@@ -34,7 +34,7 @@
 		//create new project
 		$scope.createNewProject = function() {
 
-			var newProjectData = {
+			let newProjectData = {
 				name: $scope.newProject.name,
 				comment: $scope.newProject.comment,
 				refKey: $scope.newProject.name.replace(/ /g, '')+BRUNCH.createGUID()

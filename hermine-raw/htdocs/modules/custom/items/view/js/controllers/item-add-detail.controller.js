@@ -34,7 +34,7 @@
 							
 			$scope.checkForDuplicateItemName = function(name) {			
 		
-				var items = $scope.allItems;
+				let items = $scope.allItems;
 				
 				for(let i in items)
 				{
@@ -58,7 +58,7 @@
 			if($scope.checkForDuplicateItemName($scope.newItem.name.replace(/ /g, "_")))
 			{
 				BRUNCH.showSpinner();
-				var newItemData = {
+				let newItemData = {
 					ID: 0,
 					name: $scope.newItem.name.replace(/ /g, "_"),
 					gridX: $scope.newItem.gridX,
@@ -97,7 +97,7 @@
 		$scope.saveHistoryEntry = function(refKey) {
 		
 			//create data
-			var data = {};
+			let data = {};
 			data.historyEntryId		= 0;
 			data.reference			= refKey;
 			data.scope				= "item";

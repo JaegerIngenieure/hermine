@@ -51,7 +51,8 @@ class ItemAdapter extends AbstractAdapterBase {
 	}
 
     function getAllItemsForStorage($storageName) {
-        $query = str_replace("{name}", $storageName, $this->query_getItemByStorage);
+
+	    $query = str_replace("{name}", $storageName, $this->query_getItemByStorage);
         $items = $this->databaseController->executeQueryToArray($query);
         $items = $this->buildItems($items);
 
@@ -67,8 +68,9 @@ class ItemAdapter extends AbstractAdapterBase {
 
 		return $item;
 	}
-	
-	function saveOrUpdateItem($item)
+
+
+    function saveOrUpdateItem($item)
 	{
 		if ($item->ID > 0)
 		{
@@ -76,7 +78,7 @@ class ItemAdapter extends AbstractAdapterBase {
 		}
 		else
 		{
-			$query = $this->query_saveItem;
+            $query = $this->query_saveItem;
 
 			$query = str_replace('{creator}', $item->creator, $query);
 			$query = str_replace('{projectRef}', $item->projectRef, $query);			
@@ -91,14 +93,14 @@ class ItemAdapter extends AbstractAdapterBase {
 		$query = str_replace('{comment}', $item->comment, $query);
 		$query = str_replace('{storage}', $item->storage, $query);
 		
-		if ($item->id > 0)
+		if ($item->ID > 0)
 		{
-			$id = $item->id;
+            $id = $item->ID;
 			$result = $this->databaseController->executeStoredProcedureToArray($query);
 		}
 		else
 		{
-			$result = $this->databaseController->executeStoredProcedureToArray($query);
+            $result = $this->databaseController->executeStoredProcedureToArray($query);
 			$id = $result[0]['insertId'];
 		}
 		return $id;

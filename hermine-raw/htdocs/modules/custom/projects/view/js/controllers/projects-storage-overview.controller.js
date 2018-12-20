@@ -29,7 +29,10 @@
 		$scope.store						= {};
         $scope.storageOverview              = {};
 
-		ProjectFactory.getProjectById($routeParams.id,true).then(function(data) {
+        $scope.test1 = $routeParams.id;
+        $scope.test2 = $routeParams.id2;
+
+		ProjectFactory.getProjectById($scope.test1, true).then(function(data) {
 
 			$scope.currentProject = data;
 
@@ -52,28 +55,32 @@
 
                 //storage overview
                 BRUNCH.showSpinner();
-                ProjectFactory.getItemsForStorage(decodeURI($routeParams.id2), true).then(function(data) {
-                    //build data for overview
-                    for(var k in $scope.project.storage) {
-                        if($scope.project.storage.hasOwnProperty(k)) {
+                ProjectFactory.getItemsForStorage(decodeURI($scope.test2), true).then(function(data) {
 
-                            //save storage to view var
-                            var currentStorage  = $scope.project.storage[k];
-                            $scope.storageOverview = angular.copy(currentStorage);
+                	//build data for overview
+                    for( let k in $scope.project.storage )
+                    {
+                        if($scope.project.storage.hasOwnProperty(k))
+                        {
+                            if ( $scope.project.storage[k].name === $scope.test2 )
+                            {
+                                //save storage to view var
+                                let currentStorage  = $scope.project.storage[k];
+                                $scope.storageOverview = angular.copy(currentStorage);
 
-                            //calculate possible storage places
-                            var val1    = (parseInt(currentStorage.value1) > 0) ? parseInt(currentStorage.value1) : 1;
-                            var val2    = (parseInt(currentStorage.value2) > 0) ? parseInt(currentStorage.value2) : 1;
-                            var val3    = (parseInt(currentStorage.value3) > 0) ? parseInt(currentStorage.value3) : 1;
-                            var val4    = (parseInt(currentStorage.value4) > 0) ? parseInt(currentStorage.value4) : 1;
-                            $scope.storageOverview.maxStorage = val1 * val2 * val3 * val4;
+                                //calculate possible storage places
+                                let val1    = (parseInt(currentStorage.value1) > 0) ? parseInt(currentStorage.value1) : 1;
+                                let val2    = (parseInt(currentStorage.value2) > 0) ? parseInt(currentStorage.value2) : 1;
+                                let val3    = (parseInt(currentStorage.value3) > 0) ? parseInt(currentStorage.value3) : 1;
+                                let val4    = (parseInt(currentStorage.value4) > 0) ? parseInt(currentStorage.value4) : 1;
+                                $scope.storageOverview.maxStorage = val1 * val2 * val3 * val4;
 
-                            //get all items for storage
-                            $scope.storageOverview.items    = data;
-                            $scope.storageOverview.stats     = {
-                                "usedCount" : $scope.storageOverview.items.length,
-                                "usedPcts" : Math.round((100 / $scope.storageOverview.maxStorage) * $scope.storageOverview.items.length * 100) / 100
-
+                                //get all items for storage
+                                $scope.storageOverview.items    = data;
+                                $scope.storageOverview.stats     = {
+                                    "usedCount" : $scope.storageOverview.items.length,
+                                    "usedPcts" : Math.round((100 / $scope.storageOverview.maxStorage) * $scope.storageOverview.items.length * 100) / 100
+                                }
                             }
                         }
                     }                    

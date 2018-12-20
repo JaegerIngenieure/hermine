@@ -215,6 +215,7 @@ class ProjectsModule extends AbstractModuleBase {
 		$project->comment 	= $params['comment'];
 		$project->gridX 	= $params['gridX'];
 		$project->gridY 	= $params['gridY'];
+        $project->iframe 	= $params['iframe'];
 		
 		$projectId = $this->adapters['projects']->saveOrUpdateProject($project);
 		return true;

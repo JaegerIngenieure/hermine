@@ -28,7 +28,7 @@
 		getAllProjectsPromise: '',
 		getAllProjects : function(refreshData) {
 			BRUNCH.showSpinner();
-			var deferred = $q.defer();
+			let deferred = $q.defer();
 			
 			if(!this.getAllProjectsPromise || refreshData)
 			{
@@ -46,12 +46,12 @@
 
 			//get project by id
 			getProjectByIdPromise: '',
-			getProjectById : function(id,refreshData) {
+			getProjectById : function(_id, refreshData) {
 				BRUNCH.showSpinner();
-				var deferred = $q.defer();
+				let deferred = $q.defer();
 				if(!this.getProjectByIdPromise || refreshData)
 				{
-					var id = parseInt(id);
+					let id = parseInt(_id);
 					$.post("ajax/projects/getProjectById",{projectId:id}).then(function successCallback(response) {
 						deferred.resolve(JSON.parse(response));
 					}, function errorCallback(response) {
@@ -67,7 +67,7 @@
 			getProjectByRefPromise: '',
 			getProjectByRef : function(ref, refreshData) {
 				BRUNCH.showSpinner();
-				var deferred = $q.defer();
+				let deferred = $q.defer();
 				if(!this.getProjectByIdPromise || refreshData)
 				{
 					$.post("ajax/projects/getProjectByRef",{projectRef:ref}).then(function successCallback(response) {
@@ -85,7 +85,7 @@
 			getAllCategoriesForProjectPromise: '',
 			getAllCategoriesForProject : function(id,refreshData) {
 			BRUNCH.showSpinner();
-			var deferred = $q.defer();
+			let deferred = $q.defer();
 			
 			if(!this.getAllCategoriesForProjectPromise || refreshData)
 			{
@@ -105,7 +105,7 @@
 			getAllStoragesForProjectPromise: '',
 			getAllStoragesForProject : function(id,refreshData) {
 			BRUNCH.showSpinner();
-			var deferred = $q.defer();
+			let deferred = $q.defer();
 			
 			if(!this.getAllStoragesForProjectPromise || refreshData)
 			{
@@ -125,7 +125,7 @@
 			getItemsWithEmptyFieldsPromise: '',
 			getItemsWithEmptyFields : function(id,refreshData) {
 			BRUNCH.showSpinner();
-			var deferred = $q.defer();
+			let deferred = $q.defer();
 			
 			if(!this.getItemsWithEmptyFieldsPromise || refreshData)
 			{
@@ -145,7 +145,7 @@
 			getAllStructureNodesForProjectPromise: '',
 			getAllStructureNodesForProject : function(refKey, refreshData) {
 			BRUNCH.showSpinner();
-			var deferred = $q.defer();
+			let deferred = $q.defer();
 			
 			if(!this.getAllStructureNodesForProjectPromise || refreshData)
 			{
@@ -165,7 +165,7 @@
             getItemsForStoragePromise: '',
             getItemsForStorage : function(refKey, refreshData) {
                 BRUNCH.showSpinner();
-                var deferred = $q.defer();
+                let deferred = $q.defer();
 
                 if(!this.getItemsForStoragePromise || refreshData)
                 {
@@ -185,7 +185,7 @@
             getAllItemsByIdPromise: '',
             getAllItemsById : function(refKey, refreshData) {
                 BRUNCH.showSpinner();
-                var deferred = $q.defer();
+                let deferred = $q.defer();
 
                 if(!this.getAllItemsByIdPromise || refreshData)
                 {
@@ -205,12 +205,15 @@
 			getFilesForProjectPromise: '',
 			getFilesForProject : function(refreshData,moduleKey,targetDir) {
 				BRUNCH.showSpinner();
-				var deferred = $q.defer();
-				if(!this.getFilesForProjectPromise || refreshData) {
-					var data = {
+				let deferred = $q.defer();
+
+				if(!this.getFilesForProjectPromise || refreshData)
+				{
+					let data = {
 						moduleKey: moduleKey,
 						targetDir: targetDir,
 					};
+
 					$.post("ajax/files/getFilesInDir",data).then(function successCallback(response) {
 						deferred.resolve(JSON.parse(response));
 					}, function errorCallback(response) {
@@ -226,10 +229,11 @@
 			getItemsWithUsedAttributePromise: '',
 			getItemsWithUsedAttribute : function(ref,name,attribute,refreshData) {
 			BRUNCH.showSpinner();
-			var deferred = $q.defer();			
+			let deferred = $q.defer();
+
 			if(!this.getItemsWithUsedAttributePromise || refreshData)
 			{
-				var data = {
+				let data = {
 					ref: ref,
 					name: name,
 					attribute: attribute

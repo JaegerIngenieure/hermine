@@ -40,7 +40,7 @@
 				if (gridX.length > 1) 
 				{
 					var splitGridX = gridX.split("");
-					for (var i = 65; i <= 90; ++i)
+					for (let i = 65; i <= 90; ++i)
 					{
 						for (let y = 1; y <= gridY; y++)
 						{
@@ -48,11 +48,11 @@
 						}
 					}
 
-					for (var i = 65; i <= splitGridX[0].toUpperCase().charCodeAt(0); ++i)
+					for (let i = 65; i <= splitGridX[0].toUpperCase().charCodeAt(0); ++i)
 					{
 						if (String.fromCharCode(i) === splitGridX[0])
 						{
-							for (var x = 65; x <= splitGridX[1].toUpperCase().charCodeAt(0); x++)
+							for (let x = 65; x <= splitGridX[1].toUpperCase().charCodeAt(0); x++)
 							{
 								for (let y = 1; y <= gridY; y++)
 								{
@@ -63,7 +63,7 @@
 						}
 						else
 						{
-							for (var x = 65; x <= 90; x++)
+							for (let x = 65; x <= 90; x++)
 							{
 								for (let y = 1; y <= gridY; y++)
 								{
@@ -77,7 +77,7 @@
 				}
 				else
 				{
-					for (var i = 65; i <= gridx; ++i)
+					for (let i = 65; i <= gridx; ++i)
 					{
 						for (let y = 1; y <= gridY; y++)
 						{
@@ -152,7 +152,7 @@
 				BRUNCH.showSpinner();
 				var deferred = $q.defer();
 				if(!this.getFilesForItemPromise || refreshData) {
-					var data = {
+					let data = {
 						moduleKey: moduleKey,
 						targetDir: targetDir,
 					};

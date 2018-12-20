@@ -29,7 +29,7 @@
         UsersFactory.getCurrentUser(false).then(function(data) {
             $scope.currentUser = data;
 
-            if ($scope.currentUser.defaultProject != "" && parseInt($scope.currentUser.permissions.items) < 90)
+            if ($scope.currentUser.defaultProject !== "" && parseInt($scope.currentUser.permissions.items) < 90)
             {
                 ProjectFactory.getProjectByRef($scope.currentUser.defaultProject, true).then(function(data) {
                     $scope.currentProject	= data;

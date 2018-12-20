@@ -173,7 +173,7 @@
 
 			BRUNCH.showSpinner();
 			
-			if($scope.frontendObject.storage.selected != undefined)
+			if($scope.frontendObject.storage.selected !== undefined)
 			{
 				$scope.newStorage.name 		= $scope.frontendObject.storage.temp.name;
 				$scope.newStorage.value1 	= $scope.frontendObject.storage.selected.value1; 
@@ -198,7 +198,7 @@
 				$scope.newStorage.value4 = 0;
 			}
 
-			var data = {
+			let data = {
 				ID: $scope.currentItem.ID,
 				name: $scope.currentItem.name.replace(/ /g, "_"),
 				gridX: $scope.currentItem.gridX,
@@ -211,7 +211,7 @@
 				refKey: $scope.currentItem.refKey
 			};			
 						
-			$.post("ajax/items/checkItemName",data,function(response)
+			$.post("ajax/items/checkItemName", data, function(response)
 			{
 				if(response.existing)
 				{
@@ -220,7 +220,7 @@
 				}
 				else
 				{
-					$.post("ajax/items/saveOrUpdateItem",data,function(response) {
+					$.post("ajax/items/saveOrUpdateItem", data, function(response) {
 						BRUNCH.notify("success","Successfully saved","Item was saved.");
 		
 						$scope.saveHistoryforChangedData($scope.currentItemOld, $scope.currentItem);
@@ -242,14 +242,17 @@
 			});			
 		};
 
-		$scope.addAdditionalInput = function(areaId,inputType,inputClass) {
+		$scope.addAdditionalInput = function(areaId, inputType, inputClass) {
+
+			let inputTemplate = '';
+
 			switch(inputType) {
 				case "text":
-					var inputTemplate = '<input type="'+inputType+'" name="additionalInput" class="form-control '+inputClass+'" />';
+					inputTemplate = '<input type="'+inputType+'" name="additionalInput" class="form-control '+inputClass+'" />';
 				break;
 
 				case "textarea":
-					var inputTemplate = '<textarea name="additionalInput" class="form-control '+inputClass+'" ></textarea>';
+					inputTemplate = '<textarea name="additionalInput" class="form-control '+inputClass+'" ></textarea>';
 				break;
 			}
 			angular.element("#"+areaId).append(inputTemplate);
@@ -257,8 +260,8 @@
 
 		$scope.getActiveCategories = function () {
 			
-			var result = document.getElementsByClassName("btn-active");
-			var wrappedResult = angular.element(result);
+			let result = document.getElementsByClassName("btn-active");
+			let wrappedResult = angular.element(result);
 			let activeCategories = "";
 
 			for (const i in wrappedResult)
@@ -278,7 +281,7 @@
 		$scope.saveHistoryEntry = function(content) {
 
 			//create data
-			var data = {};
+			let data = {};
 			data.historyEntryId		= 0;
 			data.reference			= $scope.currentItem.refKey;
 			data.scope				= "item";
@@ -339,10 +342,11 @@
 		$scope.uploadFiles = function (files) {
 			if (files && files.length) {
 				BRUNCH.showSpinner();
-				for (var i = 0; i < files.length; i++)
+				for (let i = 0; i < files.length; i++)
 				{
 					//if(i>0) {return;}
-					var file = files[i];
+					let file = files[i];
+
 					if (!file.$error) {
 						Upload.upload({
 							url: BRUNCH.config.pageRoot + '/ajax/files/uploadFileAsync',
@@ -388,7 +392,8 @@
 		};
 
 		$scope.deleteFile = function(fileName,key) {
-			var data = {
+
+			let data = {
 				moduleKey: "item",
                 filePath: $scope.currentProject.name +"/"+ $scope.currentItem.name + "/files/" + fileName
 
@@ -447,7 +452,7 @@
 		};
 
 		$scope.deleteProfileImage = function() {
-			var data = {
+			let data = {
 				moduleKey: "item",
                 filePath: $scope.currentProject.name +"/"+ $scope.currentItem.name  + "/images/profile.png"
 			};
@@ -460,7 +465,7 @@
 		};
 
 		$scope.deleteItemFolder = function(path) {
-			var data = {
+			let data = {
 				moduleKey: "item",
                 folderPath: $scope.currentProject.name +"/"+ $scope.currentItem.name + path
 			};
@@ -531,7 +536,7 @@
 		$scope.deleteItem = function() {
 
 			//create data
-			var data = {};
+			let data = {};
 			data.itemId	= $scope.currentItem.ID;
 			data.ref	= $scope.currentItem.refKey;
 
@@ -571,8 +576,8 @@
 
 		$scope.chanceActive = function (id) {
 			
-			var selectedId = "#cat"+(id.replace(/\s+/g, '').toLowerCase());
-			var catElement = angular.element( document.querySelector(selectedId) );
+			let selectedId = "#cat"+(id.replace(/\s+/g, '').toLowerCase());
+			let catElement = angular.element( document.querySelector(selectedId) );
 			
 			if (catElement.hasClass("btn-active"))
 			{
