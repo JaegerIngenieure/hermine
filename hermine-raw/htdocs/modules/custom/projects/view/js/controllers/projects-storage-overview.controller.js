@@ -47,7 +47,7 @@
 				$scope.project.category = data;
 				BRUNCH.hideSpinner();
 			});
-
+            
 			BRUNCH.showSpinner();
 			ProjectFactory.getAllStoragesForProject($scope.currentProject.refKey, true).then(function(data) {
 				$scope.project.storage = $filter("filterStorage")(data);				
@@ -80,6 +80,7 @@
                                 $scope.storageOverview.stats     = {
                                     "usedCount" : $scope.storageOverview.items.length,
                                     "usedPcts" : Math.round((100 / $scope.storageOverview.maxStorage) * $scope.storageOverview.items.length * 100) / 100
+
                                 }
                             }
                         }
