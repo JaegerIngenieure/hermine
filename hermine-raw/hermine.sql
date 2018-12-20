@@ -299,7 +299,7 @@ attachment = _attachment,
 lastUpdate = Now() WHERE historyEntryId = _historyEntryId;
  END$$
 
-CREATE PROCEDURE `sp_update_item` (IN `_itemRefKey` INT, IN `_name` VARCHAR(255), IN `_gridX` VARCHAR(10), IN `_gridY` VARCHAR(10), IN `_structure` VARCHAR(255), IN `_category` VARCHAR(255), IN `_comment` TEXT, IN `_storage` VARCHAR(255))  BEGIN
+CREATE PROCEDURE `sp_update_item` (IN `_itemRefKey` VARCHAR(255), IN `_name` VARCHAR(255), IN `_gridX` VARCHAR(10), IN `_gridY` VARCHAR(10), IN `_structure` VARCHAR(255), IN `_category` VARCHAR(255), IN `_comment` TEXT, IN `_storage` VARCHAR(255))  BEGIN
 UPDATE items SET
 name = _name,
 gridX = _gridX,
