@@ -139,7 +139,7 @@ SELECT * FROM projects;
  END$$
 
 CREATE PROCEDURE `sp_get_project_by_id` (IN `_projectId` INT)  BEGIN
-SELECT * FROM projects WHERE projectId = _projectId;
+SELECT * FROM projects WHERE projectId = _projectId ORDER BY name ASC;
  END$$
 
 CREATE PROCEDURE `sp_get_project_by_ref` (IN `_refKey` VARCHAR(255))  NO SQL
