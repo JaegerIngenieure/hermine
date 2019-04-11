@@ -1,5 +1,0 @@
-Satisfy Any
-Order Deny,Allow
-Allow from all
-
-IndexOptions FancyIndexing
