@@ -71,8 +71,6 @@
 				ProjectFactory.getAllStoragesForProject($scope.currentProject.refKey, true).then(function(data) {
 					$scope.storage = $filter("filterStorage")(data);
 					$scope.frontendObject.storage = $filter("filterStorageforFrontend")($scope.storage, $scope.currentItem.storage);
-					console.log("$scope.frontendObject.storage");
-                    console.log($scope.frontendObject.storage);
 
 					BRUNCH.hideSpinner();
 				});				
@@ -207,9 +205,9 @@
 				category: $scope.getActiveCategories(),
 				comment: $scope.currentItem.comment,
 				storage: JSON.stringify($scope.newStorage),
-				projectRef: $scope.currentItem.refKey,
+				projectRef: $scope.currentItem.projectRef,
 				refKey: $scope.currentItem.refKey
-			};			
+			};
 						
 			$.post("ajax/items/checkItemName", data, function(response)
 			{

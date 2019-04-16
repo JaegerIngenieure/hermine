@@ -25,12 +25,12 @@
 class ItemAdapter extends AbstractAdapterBase {
 
 	private $query_getAllItems 		= "CALL sp_list_items_by_project_id('{id}');";
-	private $query_saveItem 		= "CALL sp_save_item('{name}','{gridX}','{gridY}','{structure}','{category}','{comment}','{creator}','{projectRef}','{refKey}');";
+	private $query_saveItem 		= "CALL sp_save_item('{name}','{comment}','{creator}','{storage}','{projectRef}','{refKey}');";
 	private $query_getItemById 		= "CALL sp_get_item({id});";
     private $query_getItemByStorage	= "CALL sp_list_items_by_storage_name('{name}');";
 	private $query_updateItem 		= "CALL sp_update_item('{refKey}','{name}','{gridX}','{gridY}','{structure}','{category}','{comment}','{storage}');";
 	private $query_deleteItemById 	= "CALL sp_delete_item_by_id ('{itemId}');";
-	private $query_checkItemName 	= "CALL sp_checkItemName ('{itemName}','{refKey}');";
+	private $query_checkItemName 	= "CALL sp_checkItemName ('{itemName}','{refKey}','{pRefKey}');";
 
 	private $personModule;
 
@@ -106,16 +106,14 @@ class ItemAdapter extends AbstractAdapterBase {
 		return $id;
 	}
 
-	function checkItemName($itemName, $ref)
+	function checkItemName($itemName, $ref, $pRef)
 	{
 		$query = str_replace("{itemName}", $itemName, $this->query_checkItemName);
-		$query = str_replace('{refKey}', $ref, $query);
+		$query = str_replace("{refKey}", $ref, $query);
+        $query = str_replace("{pRefKey}", $pRef, $query);
 		$result = array("existing" => false);
 		
 		$response = $this->databaseController->executeStoredProcedureToArray($query);
-		
-		//$output = "'{refKey}', $ref ".count($response)."";
-		//echo $output;
 
 		if(count($response) > 0)
 		{

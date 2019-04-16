@@ -362,6 +362,22 @@ class ProjectsModule extends AbstractModuleBase {
         $tables         = array("attributes","historyentries","items","projects");
         $cols           = array("attributeId","historyEntryId","ID","projectId");
 
+        // check if TABLE:"temptable" still exists, then DROP it
+        try
+        {
+            $query = "SHOW TABLES LIKE 'temptable';";
+            $res = $dbController->executeQuery($query);
+
+            if ($res->num_rows > 0)
+            {
+                $query = "DROP TABLE temptable;";
+                $dbController->executeQuery($query);
+            }
+        }
+        catch (Exception $e){
+
+        }
+
 	    //export tables
         $c = 0;
         foreach($tables as $table) {
@@ -435,8 +451,7 @@ class ProjectsModule extends AbstractModuleBase {
             }
         }
 
-
-        //export cleanup  process
+        //export cleanup process
         foreach($tables as $table) {
             unlink($location.$table.".csv");
             if(file_exists($location.$table.".csv")) {

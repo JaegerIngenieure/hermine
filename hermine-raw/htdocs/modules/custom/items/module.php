@@ -128,7 +128,7 @@ class ItemModule extends AbstractModuleBase {
 
 	function checkItemName($params) {
 
-		$responce = $this->adapters['item']->checkItemName($params['name'], $params['refKey']);
+		$responce = $this->adapters['item']->checkItemName($params['name'], $params['refKey'], $params['projectRef']);
 
 		return $responce;
 	}	

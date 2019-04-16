@@ -73,6 +73,15 @@
 			if($scope.checkForDuplicateItemName($scope.newItem.name.replace(/ /g, "_")))
 			{
 				BRUNCH.showSpinner();
+
+				let defaultStorage = {
+					"name":"not stored",
+					"value1":0,
+					"value2":0,
+					"value3":0,
+					"value4":0
+				};
+
 				let newItemData = {
 					ID: 0,
 					name: $scope.newItem.name.replace(/ /g, "_"),
@@ -82,13 +91,13 @@
 					category: "",
 					comment: $scope.newItem.comment,
 					creator: $scope.currentUser.fullname,
-					storage: "",
+					storage: JSON.stringify(defaultStorage),
 					projectRef: $scope.currentProject.refKey,
 					refKey: BRUNCH.createGUID()
 				};
 
 				//save Item
-				$.post("ajax/items/saveOrUpdateItem",newItemData,function(itemResponse) {
+				$.post("ajax/items/saveOrUpdateItem", newItemData, function(itemResponse) {
 
 					BRUNCH.notify("success","Successfully saved","Item saved.");
 					$scope.saveHistoryEntry(newItemData['refKey']);

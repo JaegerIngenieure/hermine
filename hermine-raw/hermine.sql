@@ -26,11 +26,12 @@ DELIMITER $$
 --
 -- Prozeduren
 --
-CREATE PROCEDURE `sp_checkItemName` (IN `_name` VARCHAR(255), IN `_ref` VARCHAR(255))  NO SQL
+CREATE PROCEDURE `sp_checkItemName` (IN `_name` VARCHAR(255), IN `_ref` VARCHAR(255), IN `_pRef` VARCHAR(255))  NO SQL
 BEGIN
 SELECT *
 FROM items
-WHERE name = _name
+WHERE projectRef = _pRef
+AND name = _name
 AND refKey != _ref;
 END$$
 
@@ -206,7 +207,8 @@ END$$
 CREATE PROCEDURE `sp_list_items_by_project_id` (IN `_projectRef` VARCHAR(255))  BEGIN
 	SELECT *
 	FROM items
-	WHERE `projectRef` = _projectRef;
+	WHERE `projectRef` = _projectRef
+	ORDER BY name;
 END$$
 
 CREATE PROCEDURE `sp_list_items_by_storage_name` (IN `_storageName` VARCHAR(255))  BEGIN
@@ -250,9 +252,9 @@ INSERT INTO historyentries (reference,scope,created,author,content)
 SELECT LAST_INSERT_ID() AS 'insertId';
  END$$
 
-CREATE PROCEDURE `sp_save_item` (IN `_name` VARCHAR(255), IN `_gridX` VARCHAR(10), IN `_gridY` VARCHAR(10), IN `_structure` VARCHAR(255), IN `_category` VARCHAR(255), IN `_comment` VARCHAR(255), IN `_creator` VARCHAR(255), IN `_projectRef` VARCHAR(255), IN `_refKey` VARCHAR(255))  BEGIN
-INSERT INTO items (name,gridX,gridY,structure,category,`comment`,creator,`storage`,projectRef,refKey)
-VALUES (_name,_gridX,_gridY,_structure,_category,_comment,_creator,'',_projectRef,_refKey);
+CREATE PROCEDURE `sp_save_item` (IN `_name` VARCHAR(255), IN `_comment` VARCHAR(255), IN `_creator` VARCHAR(255), IN `_storage` VARCHAR(255), IN `_projectRef` VARCHAR(255), IN `_refKey` VARCHAR(255))  BEGIN
+INSERT INTO items (name,`comment`,creator,`storage`,projectRef,refKey)
+VALUES (_name,_comment,_creator,_storage,_projectRef,_refKey);
 SELECT last_insert_id() as insertId;
  END$$
 
@@ -403,10 +405,10 @@ CREATE TABLE `historyentries` (
 CREATE TABLE `items` (
   `ID` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `gridX` varchar(10) DEFAULT NULL,
+  `gridX` varchar(10) NOT NULL,
   `gridY` varchar(10) NOT NULL,
-  `structure` varchar(255) DEFAULT NULL,
-  `category` varchar(255) DEFAULT NULL,
+  `structure` varchar(255) NOT NULL,
+  `category` varchar(255) NOT NULL,
   `comment` text,
   `creator` varchar(255) DEFAULT NULL,
   `storage` varchar(255) DEFAULT NULL,

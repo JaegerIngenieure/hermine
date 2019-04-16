@@ -58,6 +58,15 @@
 			if($scope.checkForDuplicateItemName($scope.newItem.name.replace(/ /g, "_")))
 			{
 				BRUNCH.showSpinner();
+
+				let defaultStorage = {
+					"name":"not stored",
+					"value1":0,
+					"value2":0,
+					"value3":0,
+					"value4":0
+				};
+
 				let newItemData = {
 					ID: 0,
 					name: $scope.newItem.name.replace(/ /g, "_"),
@@ -67,7 +76,7 @@
 					category: "",
 					comment: $scope.newItem.comment,
 					creator: $scope.currentUser.fullname,
-					storage: "",
+					storage: JSON.stringify(defaultStorage),
 					projectRef: $scope.currentProject.refKey,
 					refKey: BRUNCH.createGUID()
 				};
@@ -91,6 +100,7 @@
 			else
 			{
 				$scope.check.nameAlreadyExists = true;
+				BRUNCH.notify("error","Error","Item name already exists.");
 			}
 		};
 				

@@ -183,18 +183,12 @@
 
 			$scope.currentProject = data;
 
-            console.log("$scope.currentProject");
-			console.log($scope.currentProject);
-
 			$scope.project.id 		= $scope.currentProject.Id;
 			$scope.project.name 	= $scope.currentProject.name;
 			$scope.project.comment 	= $scope.currentProject.comment;
 			$scope.project.gridX	= $scope.currentProject.gridX;
 			$scope.project.gridY	= $scope.currentProject.gridY;
             $scope.project.iframe	= $scope.currentProject.iframe;
-
-            console.log("$scope.project");
-            console.log($scope.project);
 
 				//get files for Project				
 				BRUNCH.showSpinner();
@@ -629,10 +623,7 @@
 
             if($filter("getPerms")($scope.currentUser.permissions,"projects") < 70)
             {
-                // window.location.href = window.location.origin+"/projects#/detail/"+$routeParams.id+"/evaluation";
-                // BRUNCH.navigateTo(BRUNCH.config.pageRoot+window.location.pathname+"#/detail/worker/"+projectId);
                 BRUNCH.navigateTo(window.location.origin+"/projects#/detail/"+$routeParams.id+"/evaluation");
-                // console.log(window.location.origin+"/projects#/detail/"+$routeParams.id+"/evaluation");
             }
             else
 			{
