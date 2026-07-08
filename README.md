@@ -1,5 +1,5 @@
 # hermine
-heritage-expedition, rubble-management &amp; intuitive nametag excavation
+heritage-expedition, rubble-management & intuitive nametag excavation
 
 ## latest release
 
